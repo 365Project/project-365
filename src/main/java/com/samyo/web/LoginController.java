@@ -19,7 +19,7 @@ import com.samyo.service.MemberService;
 public class LoginController {
 
 	@Autowired
-	MemberService memberService;
+	private MemberService memberService;
 
 	@RequestMapping("/login")
 	public String login() {
@@ -80,8 +80,6 @@ public class LoginController {
 		member.setGender(gender);
 		member.setAge_range(age);
 		member.setToken(token);
-		
-		memberService.insertMember(member);
 
 		System.out.println("## id : " + id);
 		System.out.println("## nickname : " + nickname);
@@ -89,7 +87,19 @@ public class LoginController {
 		System.out.println("## gender : " + gender);
 		System.out.println("## age : " + age);
 		System.out.println("## token : " + token);
-		return "login"; // 본인 원하는 경로 설정
+		// System.out.println(member);
+		
+		// 기존 회원인지 중복체크
+		int cnt = memberService.getMember(member.getEmail());
+
+		if (cnt > 0) {
+			System.out.println("이미 가입 된 회원 정보");
+			return "afterLogin"; 
+		} else {
+			memberService.insertMember(member);
+			return "home";
+		}
+
 	}
 
 }

@@ -14,10 +14,20 @@ public class MemberServiceImpl implements MemberService {
 	private SqlSession sqlSession;
 
 	@Override
-	public int insertMember(MemberDTO member) {
+	public int insertMember(MemberDTO member) throws Exception {
+
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		memberMapper.insertMember(member);
 		return 0;
+	}
+
+	@Override
+	public int getMember(String email) throws Exception {
+
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		int res = memberMapper.getMember(email);
+
+		return res;
 	}
 
 }

@@ -1,10 +1,10 @@
 package com.samyo.service;
 
-import org.springframework.stereotype.Service;
-
 import com.samyo.domain.MemberDTO;
 
-@Service
 public interface MemberService {
-	public int insertMember(MemberDTO member);
+
+	public int insertMember(MemberDTO member) throws Exception;
+
+	public int getMember(String email) throws Exception;
 }
