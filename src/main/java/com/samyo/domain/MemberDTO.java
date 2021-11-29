@@ -8,6 +8,7 @@ public class MemberDTO {
 	private String gender;
 	private String age_range;
 	private String token;
+	private String joindate;
 
 	public String getId() {
 		return id;
@@ -56,11 +57,19 @@ public class MemberDTO {
 	public void setToken(String token) {
 		this.token = token;
 	}
+	
+	public String getJoindate() {
+		return joindate;
+	}
+
+	public void setJoindate(String joindate) {
+		this.joindate = joindate;
+	}
 
 	@Override
 	public String toString() {
 		return "MemberDTO [id=" + id + ", nickname=" + nickname + ", email=" + email + ", gender=" + gender
-				+ ", age_range=" + age_range + ", token=" + token + "]";
+				+ ", age_range=" + age_range + ", token=" + token + ", joindate=" + joindate + "]";
 	}
 
 }

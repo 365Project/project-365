@@ -3,12 +3,14 @@
 
 <mapper namespace="com.samyo.mapper.MemberMapper">
 	
-	<insert id="insertMember" parameterType="com.samyo.domain.MemberDTO">
-		insert into member 
+	<insert id="insertMember">
+		insert into MEMBER 
 		(id, nickname, email, gender, age_range, token, joindate)
 		values 
 		(#{id}, #{nickname}, #{email}, #{gender}, #{age_range}, #{token}, now())
 	</insert>
-
-
+	
+	<select id="getMember" parameterType="String" resultType="int">
+		select count(email) as email from MEMBER where email = #{email}
+	</select>
 </mapper>

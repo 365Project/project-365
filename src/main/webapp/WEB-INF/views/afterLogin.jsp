@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>로그인 성공?</h1>
-	$(document).ready(
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script>
+		$(document).ready(
 				function() {
 
 					var kakaoInfo = '${kakaoInfo}';
@@ -22,5 +23,7 @@
 								+ "\n nickname : " + data['nickname']);
 					}
 				});
+	</script>
+	<h1>성공</h1>
 </body>
 </html>
