@@ -1,10 +1,10 @@
 package com.samyo.service;
 
-import com.samyo.domain.MemberDTO;
+import com.samyo.domain.MemberVO;
 
 public interface MemberService {
 
-	public int insertMember(MemberDTO member) throws Exception;
+	public int insertMember(MemberVO member) throws Exception;
 
 	public int getMember(String email) throws Exception;
 }

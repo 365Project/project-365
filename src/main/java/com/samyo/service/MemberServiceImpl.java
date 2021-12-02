@@ -4,7 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.samyo.domain.MemberDTO;
+import com.samyo.domain.MemberVO;
 import com.samyo.mapper.MemberMapper;
 
 @Service("memberService")
@@ -14,7 +14,7 @@ public class MemberServiceImpl implements MemberService {
 	private SqlSession sqlSession;
 
 	@Override
-	public int insertMember(MemberDTO member) throws Exception {
+	public int insertMember(MemberVO member) throws Exception {
 
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		memberMapper.insertMember(member);

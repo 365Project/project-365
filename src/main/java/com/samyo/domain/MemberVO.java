@@ -1,6 +1,6 @@
 package com.samyo.domain;
 
-public class MemberDTO {
+public class MemberVO {
 
 	private String id;
 	private String nickname;

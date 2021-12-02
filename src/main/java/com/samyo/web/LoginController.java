@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.samyo.domain.MemberDTO;
+import com.samyo.domain.MemberVO;
 import com.samyo.kakao.KakaoAccessToken;
 import com.samyo.kakao.KakaoUserInfo;
 import com.samyo.service.MemberService;
@@ -37,7 +37,7 @@ public class LoginController {
 
 	// 카카오 연동정보 조회
 	@RequestMapping(value = "/login/oauth_kakao")
-	public String oauthKakao(@RequestParam(value = "code", required = false) String code, Model model)
+	public String oauthKakao(@RequestParam(value = "code", required = false) String code)
 			throws Exception {
 
 		System.out.println("###code###" + code);
@@ -72,7 +72,7 @@ public class LoginController {
 		gender = kakao_account.path("gender").asText();
 		age = kakao_account.path("age_range").asText();
 
-		MemberDTO member = new MemberDTO();
+		MemberVO member = new MemberVO();
 
 		member.setId(id);
 		member.setNickname(nickname);
