@@ -1,21 +1,27 @@
 package com.samyo.web;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.samyo.domain.AnswerVO;
 import com.samyo.service.AnswerService;
 
 
 @RestController
 public class AnswerController {
+	
 	SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy");
 	SimpleDateFormat format2 = new SimpleDateFormat ( "MMdd");
 			
@@ -27,14 +33,7 @@ public class AnswerController {
 	
 	
 	@Autowired
-	private AnswerService answerService;
-	
-	/*@JsonFormat(pattern = "MMdd")
-	Date Date;
-	@JsonFormat(pattern = "yyyy")
-	Date Year;*/
-	
-	
+	private AnswerService answerService;	
 
 	//답변 작성하기 ,POST
 	@RequestMapping("/answer/write")
@@ -45,12 +44,14 @@ public class AnswerController {
 		
 		AnswerVO answer = new AnswerVO();
 		
-		answer.setAnswer_num(1);
-		answer.setAnswer_year(year);
-		answer.setAnswer_date(date);
-		answer.setAnswer("answer");
+		answer.setAnswer_num(4);
+		//answer.setAnswer_year(year);
+		//answer.setAnswer_date(date);
+		answer.setAnswer_year("2023");
+		answer.setAnswer_date("0101");
+		answer.setAnswer("answer3");
 		answer.setPublic_answer("Y");
-		answer.setQuestion_num(2);
+		answer.setQuestion_num(1);
 		answer.setMember_num(2);
 		answer.setAnswer_delete("N");
 		answer.setDelete_date(null);
@@ -59,12 +60,31 @@ public class AnswerController {
 		return answer;
 		
 	}
-
+	
+	//내답변 전체 조회
+	//(value = {"/product.{product_id}/book.{book_id}"})
+							
+	@GetMapping("/answer/read/{question_num}/{member_num}")
+	//@RequestMapping(value= {"/answer/read/{question_num}/{member_num}"}, method=RequestMethod.GET)
+	//public List<AnswerVO> Read(@PathVariable("question_num") int question_num, @PathVariable("member_num") int member_num) throws Exception {
+	public List<AnswerVO> Read(@PathVariable("question_num") int question_num) throws Exception {
+		System.out.println("question_num: "+question_num);
+		//System.out.println("member_num: "+member_num);
+		System.out.println("--1-");
+		//AnswerVO answer = new AnswerVO();
+		//List<AnswerVO> answer = answerService.ReadAnswer(question_num,member_num);
+		List<AnswerVO> answer = answerService.ReadAnswer(question_num);
+		System.out.println("--2-");
+		//answer.getAnswer();
 		
-	
-	
-	
-	//내답변 조회(/diary)
+		//콘솔찍어보기
+		for (AnswerVO data:answer) {
+			System.out.println("answer: "+ answer);
+		}
+		System.out.println("--3-");
+		
+		return answer;
+	}
 	//내답변 수정
 	//내답변 삭제
 
