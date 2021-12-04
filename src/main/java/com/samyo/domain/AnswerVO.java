@@ -14,41 +14,37 @@ public class AnswerVO {
 	@DateTimeFormat
 	(pattern = "yyyy-MM-dd") Date Date;*/
 	
-	@JsonFormat(pattern = "yyyyMMdd")
-	Date Date;
+	/*@JsonFormat(pattern = "yyyyMMdd")
+	Date Date;*/
 	
 	private int answer_num;
-	private Date answer_year;
-	private Date answer_date;
+	//private Date answer_year;
+	//private Date answer_date;
+	private String answer_year;
+	private String answer_date;
 	private String answer;
 	private String public_answer;
 	private int question_num;
 	private int member_num;
 	private String answer_delete;
-	private Date delete_date;
+	private String delete_date;
 	
-	public Date getDate() {
-		return Date;
-	}
-	public void setDate(Date date) {
-		Date = date;
-	}
 	public int getAnswer_num() {
 		return answer_num;
 	}
 	public void setAnswer_num(int answer_num) {
 		this.answer_num = answer_num;
 	}
-	public Date getAnswer_year() {
+	public String getAnswer_year() {
 		return answer_year;
 	}
-	public void setAnswer_year(Date answer_year) {
+	public void setAnswer_year(String answer_year) {
 		this.answer_year = answer_year;
 	}
-	public Date getAnswer_date() {
+	public String getAnswer_date() {
 		return answer_date;
 	}
-	public void setAnswer_date(Date answer_date) {
+	public void setAnswer_date(String answer_date) {
 		this.answer_date = answer_date;
 	}
 	public String getAnswer() {
@@ -81,13 +77,16 @@ public class AnswerVO {
 	public void setAnswer_delete(String answer_delete) {
 		this.answer_delete = answer_delete;
 	}
-	public Date getDelete_date() {
+	public String getDelete_date() {
 		return delete_date;
 	}
-	public void setDelete_date(Date delete_date) {
+	public void setDelete_date(String delete_date) {
 		this.delete_date = delete_date;
 	}
-
+	
+	
+	
+	
 	
 	
 	

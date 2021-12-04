@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.samyo.mapper.AnswerMapper">
+
+	<insert id="insertAnswer">
+		insert into ANSWER 
+		(answer_num ,answer_year ,answer_date,answer ,public_answer ,question_num ,member_num ,answer_delete ,delete_date) 
+		values 
+		(#{answer_num} ,#{answer_year},#{answer_date},#{answer},#{public_answer},#{question_num},#{member_num},#{answer_delete},#{delete_date}); 
+	
+	</insert>
+
+</mapper>
