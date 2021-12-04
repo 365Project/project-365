@@ -1,5 +1,6 @@
 package com.samyo.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.samyo.domain.AnswerVO;
@@ -12,5 +13,7 @@ public interface AnswerMapper {
 	//public void selectAnswer(AnswerVO answer);
 
 	public List<AnswerVO> selectAnswer(int question_num);
+
+	public List<AnswerVO> updateAnswer(HashMap<String, Integer> map);
 
 }

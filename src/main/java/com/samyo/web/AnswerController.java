@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,8 +63,7 @@ public class AnswerController {
 	}
 	
 	//내답변 전체 조회
-	//(value = {"/product.{product_id}/book.{book_id}"})
-							
+	//(value = {"/product.{product_id}/book.{book_id}"})				
 	@GetMapping("/answer/read/{question_num}/{member_num}")
 	//@RequestMapping(value= {"/answer/read/{question_num}/{member_num}"}, method=RequestMethod.GET)
 	//public List<AnswerVO> Read(@PathVariable("question_num") int question_num, @PathVariable("member_num") int member_num) throws Exception {
@@ -85,8 +85,21 @@ public class AnswerController {
 		
 		return answer;
 	}
-	//내답변 수정
-	//내답변 삭제
+	
+	//내답변 수정버튼>수정페이지
+	@GetMapping("/answer/update/{question_num}/{member_num}")
+	public List<AnswerVO> Update(@PathVariable("question_num") int question_num,@PathVariable("member_num") int member_num) throws Exception {
+		System.out.println("수정 페이지/ controller name: Update");
+		System.out.println("question_num: "+question_num);
+		System.out.println("member_num: "+member_num);
+		
+		List<AnswerVO> result = answerService.UpdateAnswer(question_num,member_num);
+		
+		return result;
+		
+	}
+	
+	//내답변 삭제(휴지통으로)
 
 }
 
