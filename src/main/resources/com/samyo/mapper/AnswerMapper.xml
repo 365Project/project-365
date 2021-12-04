@@ -5,10 +5,22 @@
 
 	<insert id="insertAnswer">
 		insert into ANSWER 
-		(answer_num ,answer_year ,answer_date,answer ,public_answer ,question_num ,member_num ,answer_delete ,delete_date) 
+			(answer_num ,answer_year ,answer_date,answer ,public_answer ,question_num ,member_num ,answer_delete ,delete_date) 
 		values 
-		(#{answer_num} ,#{answer_year},#{answer_date},#{answer},#{public_answer},#{question_num},#{member_num},#{answer_delete},#{delete_date}); 
+			(#{answer_num} ,#{answer_year},#{answer_date},#{answer},#{public_answer},#{question_num},#{member_num},#{answer_delete},#{delete_date}); 
 	
 	</insert>
+	
+	<select id="selectAnswer" parameterType="int" resultType="com.samyo.domain.AnswerVO" >
+		select 
+			*
+		from 
+			ANSWER 
+		where 
+			question_num= #{question_num}
+		and
+			member_num= #{member_num}
+		
+	</select>
 
 </mapper>
