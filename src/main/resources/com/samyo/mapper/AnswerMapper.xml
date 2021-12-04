@@ -22,5 +22,17 @@
 			member_num= #{member_num}
 		
 	</select>
+	
+	<select id="updateAnswer" parameterType="hashmap" resultType="com.samyo.domain.AnswerVO" >
+		select 
+			*
+		from 
+			ANSWER 
+		where 
+			question_num= #{question_num}
+		and
+			member_num= #{member_num}
+		
+	</select>
 
 </mapper>
