@@ -15,14 +15,13 @@ public class QuestionController {
 	@Autowired
 	private QuestionService questionService;
 
-
 	@RequestMapping(value = "/question/{question_num}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public QuestionVO getQuestion(@PathVariable("question_num") int question_num) throws Exception {
 		System.out.println(question_num);
-		
+
 		QuestionVO question = new QuestionVO();
 		question = questionService.getQuestion(question_num);
-		
+
 		System.out.println(question);
 		return question;
 	}
