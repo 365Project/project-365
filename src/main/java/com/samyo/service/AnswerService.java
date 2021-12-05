@@ -12,5 +12,11 @@ public interface AnswerService {
 	//public AnswerVO UpdateAnswer(int question_num);
 	public List<AnswerVO> ReadAnswer(int question_num, int member_num) throws Exception;
 	public AnswerVO UpdateAnswerPage(int answer_num);
+	//public AnswerVO UpdateAnswer(int answer_num, int member_num);
+	public void UpdateAnswer(AnswerVO answer);
+	public void UpdateDelete(AnswerVO answer);
+	public void publicAnswer(AnswerVO answer);
+	public void TrashPublic(AnswerVO answer);
+	
 	
 }

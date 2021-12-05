@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -92,7 +93,94 @@ public class AnswerController {
 		
 	}
 	
+	//수정페이지 > 내용수정후 > 수정버튼
+	@RequestMapping(value="/answer/update/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.POST} )
+	public void Update(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
+		System.out.println("수정기능 시작! : controller name : Update");
+		
+		AnswerVO answer = new AnswerVO();
+		answer.setAnswer("이건 바뀔 내용이에요 !!!!");
+		answer.setPublic_answer("Y");
+		answer.setAnswer_num(answer_num);
+		answer.setMember_num(member_num);
+		
+		System.out.println("Answer: "+answer.getAnswer());
+		System.out.println("public_answer: "+answer.getPublic_answer());
+		System.out.println("Answer_num: " +answer.getAnswer_num());
+		
+		answerService.UpdateAnswer(answer);
+		System.out.println("=========수정완료=========");
+	
+	}
+	
+	//내일기장 > 공개여부 버튼
+	@RequestMapping(value="/answer/public/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.POST} )
+	public void PublicAnswer(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
+		System.out.println("공개여부 변경 시작! : controller name : PublicAnswer");
+		
+		AnswerVO answer = new AnswerVO();
+		answer.setPublic_answer("Y");
+		answer.setAnswer_num(answer_num);
+		answer.setMember_num(member_num);
+		
+		System.out.println("public_answer: "+answer.getPublic_answer());
+		System.out.println("Answer_num: " +answer.getAnswer_num());
+		
+		answerService.publicAnswer(answer);
+		System.out.println("=========공개여부 수정완료=========");
+	
+	}
+	
+	
 	//내답변 삭제(휴지통으로)
+	@RequestMapping(value="/answer/update/delete/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.POST})
+	public void UpdateDelete(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+		
+		System.out.println("삭제 수정기능 시작! : controller name : UpdateDelete");
+		
+		AnswerVO answer = new AnswerVO();
+		answer.setAnswer_num(answer_num);
+		answer.setMember_num(member_num);
+		answer.setAnswer_delete("Y"); // Y=휴지통으로
+		answer.setDelete_date("20211205"); //휴지통에 넣은 날짜
+		
+		System.out.println("Answer_delete: "+answer.getAnswer_delete());
+		System.out.println("Delete_date: "+answer.getDelete_date());
+		System.out.println("Answer_num: " +answer.getAnswer_num());
+		System.out.println("member_num: " +answer.getMember_num());
+		
+		answerService.UpdateDelete(answer);
+		System.out.println("=========삭제 수정완료=========");
+		
+	}
+	
+	//================== 휴지통 ==========================
+	//내 답변 복구하기
+	@RequestMapping(value="/answer/trash/public/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.POST})
+	public void TrashPublic(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+		
+		System.out.println("답변 복원하기 시작! : controller name : TrashPublic");
+		
+		AnswerVO answer = new AnswerVO();
+		answer.setAnswer_num(answer_num);
+		answer.setMember_num(member_num);
+		answer.setAnswer_delete("N"); // N=내일기장으로
+		answer.setDelete_date(""); //휴지통에 넣은 날짜
+		
+		System.out.println("Answer_delete: "+answer.getAnswer_delete());
+		System.out.println("Delete_date: "+answer.getDelete_date());
+		System.out.println("Answer_num: " +answer.getAnswer_num());
+		System.out.println("member_num: " +answer.getMember_num());
+		
+		answerService.TrashPublic(answer);
+		System.out.println("=========삭제 수정완료=========");
+		
+	}
 
+	
+	
+	
+	
+	
 }
 

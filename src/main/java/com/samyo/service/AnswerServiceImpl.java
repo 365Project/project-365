@@ -44,11 +44,57 @@ public class AnswerServiceImpl implements AnswerService {
 	@Override
 	public AnswerVO UpdateAnswerPage(int answer_num) {
 
-		System.out.println("수정 페이지/ service name: Update");
+		System.out.println("수정 페이지/ service name: UpdateAnswerPage");
 		
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 		
 		AnswerVO result =answerMapper.updateAnswerPage(answer_num);
 		return result;
+	}
+
+
+	@Override
+	public void UpdateAnswer(AnswerVO answer) {
+		
+		System.out.println("수정 하기!/ service name: UpdateAnswer");
+		
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+	
+		answerMapper.updateAnswer(answer);
+		
+	}
+
+
+	@Override
+	public void UpdateDelete(AnswerVO answer) {
+		
+		System.out.println("삭제 여부 수정 하기!/ service name: UpdateDelete");
+		
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+	
+		answerMapper.updateDelete(answer);
+		
+	}
+
+
+	@Override
+	public void publicAnswer(AnswerVO answer) {
+		System.out.println("공개 여부 수정 하기!/ service name: publicAnswer");
+		
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+	
+		answerMapper.publicAnswer(answer);
+		
+	}
+
+
+	@Override
+	public void TrashPublic(AnswerVO answer) {
+		System.out.println("답변 복원 하기 !/ service name: TrashPublic");
+		
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+	
+		answerMapper.TrashPublic(answer);
+		
 	}
 }
