@@ -16,4 +16,6 @@ public interface AnswerMapper {
 
 	public List<AnswerVO> updateAnswer(HashMap<String, Integer> map);
 
+	public AnswerVO updateAnswerPage(int answer_num);
+
 }

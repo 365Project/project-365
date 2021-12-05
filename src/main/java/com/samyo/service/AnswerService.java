@@ -9,7 +9,8 @@ public interface AnswerService {
 
 	public int insertAnswer(AnswerVO answer) throws Exception;
 	//public List ReadAnswer(int question_num) throws Exception;
-	public List<AnswerVO> UpdateAnswer(int question_num, int member_num);
+	//public AnswerVO UpdateAnswer(int question_num);
 	public List<AnswerVO> ReadAnswer(int question_num, int member_num) throws Exception;
+	public AnswerVO UpdateAnswerPage(int answer_num);
 	
 }
