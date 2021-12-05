@@ -8,9 +8,8 @@ import com.samyo.domain.QuestionVO;
 public interface AnswerService {
 
 	public int insertAnswer(AnswerVO answer) throws Exception;
-	//public List<AnswerVO> ReadAnswer(AnswerVO answer) throws Exception;
-	//public List<AnswerVO> ReadAnswer(int question_num, int member_num) throws Exception;
-	public List ReadAnswer(int question_num) throws Exception;
+	//public List ReadAnswer(int question_num) throws Exception;
 	public List<AnswerVO> UpdateAnswer(int question_num, int member_num);
+	public List<AnswerVO> ReadAnswer(int question_num, int member_num) throws Exception;
 	
 }

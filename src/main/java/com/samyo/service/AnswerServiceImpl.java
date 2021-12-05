@@ -29,12 +29,14 @@ public class AnswerServiceImpl implements AnswerService {
 
 
 	@Override
-	public List<AnswerVO> ReadAnswer(int question_num) throws Exception {
+	public List<AnswerVO> ReadAnswer(int question_num, int member_num) throws Exception {
 
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
-		//answerMapper.selectAnswer(question_num);
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("question_num", question_num);
+		map.put("member_num", member_num);
 		
-		List<AnswerVO> result = answerMapper.selectAnswer(question_num);
+		List<AnswerVO> result =answerMapper.selectAnswer(map);
 		return result;
 	}
 

@@ -11,7 +11,7 @@
 	
 	</insert>
 	
-	<select id="selectAnswer" parameterType="int" resultType="com.samyo.domain.AnswerVO" >
+	<select id="selectAnswer" parameterType="hashmap" resultType="com.samyo.domain.AnswerVO" >
 		select 
 			*
 		from 
