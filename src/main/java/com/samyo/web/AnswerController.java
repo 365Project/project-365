@@ -62,21 +62,15 @@ public class AnswerController {
 		
 	}
 	
-	//내답변 전체 조회
-	//(value = {"/product.{product_id}/book.{book_id}"})				
+	//내답변 전체 조회			
 	@GetMapping("/answer/read/{question_num}/{member_num}")
-	//@RequestMapping(value= {"/answer/read/{question_num}/{member_num}"}, method=RequestMethod.GET)
-	//public List<AnswerVO> Read(@PathVariable("question_num") int question_num, @PathVariable("member_num") int member_num) throws Exception {
-	public List<AnswerVO> Read(@PathVariable("question_num") int question_num) throws Exception {
+	public List<AnswerVO> Read(@PathVariable("question_num") int question_num,@PathVariable("member_num") int member_num) throws Exception {
 		System.out.println("question_num: "+question_num);
-		//System.out.println("member_num: "+member_num);
-		System.out.println("--1-");
-		//AnswerVO answer = new AnswerVO();
-		//List<AnswerVO> answer = answerService.ReadAnswer(question_num,member_num);
-		List<AnswerVO> answer = answerService.ReadAnswer(question_num);
-		System.out.println("--2-");
-		//answer.getAnswer();
+		System.out.println("member_num: "+member_num);
 		
+		List<AnswerVO> answer = answerService.ReadAnswer(question_num,member_num);
+		System.out.println("--2-");
+	
 		//콘솔찍어보기
 		for (AnswerVO data:answer) {
 			System.out.println("answer: "+ answer);
@@ -87,13 +81,12 @@ public class AnswerController {
 	}
 	
 	//내답변 수정버튼>수정페이지
-	@GetMapping("/answer/update/{question_num}/{member_num}")
-	public List<AnswerVO> Update(@PathVariable("question_num") int question_num,@PathVariable("member_num") int member_num) throws Exception {
+	@GetMapping("/answer/update/{answer_num}")
+	public AnswerVO UpdatePage(@PathVariable("answer_num") int answer_num) throws Exception {
 		System.out.println("수정 페이지/ controller name: Update");
-		System.out.println("question_num: "+question_num);
-		System.out.println("member_num: "+member_num);
 		
-		List<AnswerVO> result = answerService.UpdateAnswer(question_num,member_num);
+		
+		AnswerVO result = answerService.UpdateAnswerPage(answer_num);
 		
 		return result;
 		

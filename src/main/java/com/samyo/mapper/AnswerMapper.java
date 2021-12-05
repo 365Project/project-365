@@ -12,8 +12,10 @@ public interface AnswerMapper {
 
 	//public void selectAnswer(AnswerVO answer);
 
-	public List<AnswerVO> selectAnswer(int question_num);
+	public List<AnswerVO> selectAnswer(HashMap<String, Integer> map);
 
 	public List<AnswerVO> updateAnswer(HashMap<String, Integer> map);
+
+	public AnswerVO updateAnswerPage(int answer_num);
 
 }
