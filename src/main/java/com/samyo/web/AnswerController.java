@@ -38,7 +38,7 @@ public class AnswerController {
 	private AnswerService answerService;	
 
 	//답변 작성하기 ,POST
-	@RequestMapping("/answer/write")
+	@RequestMapping("/answers/new")
 	public AnswerVO Write() throws Exception {
 		System.out.println("답변작성 페이지/ controller name: Write");
 		System.out.println("year:"+year);
@@ -63,8 +63,8 @@ public class AnswerController {
 		
 	}
 	
-	//내답변 전체 조회			
-	@GetMapping("/answer/read/{question_num}/{member_num}")
+	//내답변(일기장) 전체 조회			
+	@GetMapping("/answers/{question_num}/{member_num}")
 	public List<AnswerVO> Read(@PathVariable("question_num") int question_num,@PathVariable("member_num") int member_num) throws Exception {
 		System.out.println("question_num: "+question_num);
 		System.out.println("member_num: "+member_num);
@@ -82,7 +82,7 @@ public class AnswerController {
 	}
 	
 	//내답변 수정버튼>수정페이지
-	@GetMapping("/answer/update/{answer_num}")
+	@GetMapping("/answers/pages/{answer_num}")
 	public AnswerVO UpdatePage(@PathVariable("answer_num") int answer_num) throws Exception {
 		System.out.println("수정 페이지/ controller name: Update");
 		
@@ -94,7 +94,7 @@ public class AnswerController {
 	}
 	
 	//수정페이지 > 내용수정후 > 수정버튼
-	@RequestMapping(value="/answer/update/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.POST} )
+	@RequestMapping(value="/answers/pages/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.PATCH} )
 	public void Update(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
 		System.out.println("수정기능 시작! : controller name : Update");
 		
@@ -114,7 +114,7 @@ public class AnswerController {
 	}
 	
 	//내일기장 > 공개여부 버튼
-	@RequestMapping(value="/answer/public/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.POST} )
+	@RequestMapping(value="/settings/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.PATCH} )
 	public void PublicAnswer(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
 		System.out.println("공개여부 변경 시작! : controller name : PublicAnswer");
 		
@@ -132,8 +132,8 @@ public class AnswerController {
 	}
 	
 	
-	//내답변 삭제(휴지통으로)
-	@RequestMapping(value="/answer/update/delete/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.POST})
+	//일기장> 내답변 삭제(휴지통으로)
+	@RequestMapping(value="/answers/{answer_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
 	public void UpdateDelete(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
 		
 		System.out.println("삭제 수정기능 시작! : controller name : UpdateDelete");
@@ -155,8 +155,8 @@ public class AnswerController {
 	}
 	
 	//================== 휴지통 ==========================
-	//내 답변 복구하기
-	@RequestMapping(value="/answer/trash/public/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.POST})
+	//휴지통 > 되돌리기 버튼(답변 복구)
+	@RequestMapping(value="/trashes/settings/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
 	public void TrashPublic(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
 		
 		System.out.println("답변 복원하기 시작! : controller name : TrashPublic");
