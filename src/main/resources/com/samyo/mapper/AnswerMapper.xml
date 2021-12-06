@@ -11,7 +11,7 @@
 	
 	</insert>
 	
-	<select id="selectAnswer" parameterType="int" resultType="com.samyo.domain.AnswerVO" >
+	<select id="selectAnswer" parameterType="hashmap" resultType="com.samyo.domain.AnswerVO" >
 		select 
 			*
 		from 
@@ -22,5 +22,57 @@
 			member_num= #{member_num}
 		
 	</select>
+	
+	<select id="updateAnswerPage" parameterType="int" resultType="com.samyo.domain.AnswerVO" >
+		select 
+			answer_num, answer, public_answer
+		from 
+			ANSWER 
+		where 
+			answer_num= #{question_num}
+		
+		
+	</select>
+	
+	<update id="updateAnswer" >
+		UPDATE
+			ANSWER 
+		SET 
+			answer = #{answer}, public_answer= #{public_answer}
+		WHERE 
+			answer_num= #{answer_num}
+		and
+			member_num= #{member_num};
+	</update>
+	<update id="updateDelete" >
+		UPDATE
+			ANSWER 
+		SET 
+			answer_delete = #{answer_delete}, delete_date= #{delete_date}
+		WHERE 
+			answer_num= #{answer_num}
+		and
+			member_num= #{member_num};
+	</update>
+	<update id="publicAnswer" >
+		UPDATE
+			ANSWER 
+		SET 
+			public_answer= #{public_answer}
+		WHERE 
+			answer_num= #{answer_num}
+		and
+			member_num= #{member_num};
+	</update>
+	<update id="TrashPublic" >
+		UPDATE
+			ANSWER 
+		SET 
+			answer_delete= "N", delete_date= null
+		WHERE 
+			answer_num= #{answer_num}
+		and
+			member_num= #{member_num};
+	</update>
 
 </mapper>
