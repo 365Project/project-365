@@ -3,11 +3,11 @@ package com.samyo.web;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.samyo.domain.MemberVO;
@@ -15,7 +15,8 @@ import com.samyo.kakao.KakaoAccessToken;
 import com.samyo.kakao.KakaoUserInfo;
 import com.samyo.service.MemberService;
 
-@Controller
+@CrossOrigin(origins = "*")
+@RestController
 public class LoginController {
 
 	@Autowired
