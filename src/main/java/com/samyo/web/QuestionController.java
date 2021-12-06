@@ -41,4 +41,20 @@ public class QuestionController {
 			return new ResponseEntity<>(question, HttpStatus.OK);
 		}
 	}
+	
+	@GetMapping(value = "calendars/{question_num}", produces = "application/json; charset=utf-8")
+	public ResponseEntity<QuestionVO> getQuestions(@PathVariable("question_num") int question_num) throws Exception {
+		System.out.println("넘어온 질문번호 :: " + question_num);
+
+		QuestionVO question = new QuestionVO();
+		question = questionService.getQuestion(question_num);
+
+		if (question == null) {
+			System.out.println("366개의 질문이 아님. 잘못된 요청");
+			return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
+		} else {
+			System.out.println(question);
+			return new ResponseEntity<>(question, HttpStatus.OK);
+		}
+	}
 }
