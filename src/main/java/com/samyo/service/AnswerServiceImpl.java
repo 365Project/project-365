@@ -24,12 +24,12 @@ public class AnswerServiceImpl implements AnswerService {
 		
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 		answerMapper.insertAnswer(answer);
-		return 0;
+		return 1;
 	}
 
 
 	@Override
-	public List<AnswerVO> ReadAnswer(int question_num, int member_num) throws Exception {
+	public List<AnswerVO> readAnswer(int question_num, int member_num) throws Exception {
 
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -42,7 +42,7 @@ public class AnswerServiceImpl implements AnswerService {
 
 
 	@Override
-	public AnswerVO UpdateAnswerPage(int answer_num) {
+	public AnswerVO updateAnswerPage(int answer_num) {
 
 		System.out.println("수정 페이지/ service name: UpdateAnswerPage");
 		
@@ -54,7 +54,7 @@ public class AnswerServiceImpl implements AnswerService {
 
 
 	@Override
-	public void UpdateAnswer(AnswerVO answer) {
+	public void updateAnswer(AnswerVO answer) {
 		
 		System.out.println("수정 하기!/ service name: UpdateAnswer");
 		
@@ -66,7 +66,7 @@ public class AnswerServiceImpl implements AnswerService {
 
 
 	@Override
-	public void UpdateDelete(AnswerVO answer) {
+	public void updateDelete(AnswerVO answer) {
 		
 		System.out.println("삭제 여부 수정 하기!/ service name: UpdateDelete");
 		
@@ -89,12 +89,40 @@ public class AnswerServiceImpl implements AnswerService {
 
 
 	@Override
-	public void TrashPublic(AnswerVO answer) {
+	public void trashPublic(AnswerVO answer) {
 		System.out.println("답변 복원 하기 !/ service name: TrashPublic");
 		
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 	
-		answerMapper.TrashPublic(answer);
+		answerMapper.trashPublic(answer);
 		
 	}
+
+
+	@Override
+	public List<AnswerVO> readTrash(int member_num) {
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+		
+		List<AnswerVO> result =answerMapper.readTrash(member_num);
+		return result;
+		
+	}
+
+
+	/*@Override
+	public int updateCount(AnswerVO answer) {
+		System.out.println("답변count !/ service name: updateCount");
+		
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+		
+		answerMapper.AnswerCount(answer);
+		
+		if(true) {
+			return=1;
+		}
+		else {
+			return 0;
+		}
+		
+	}*/
 }

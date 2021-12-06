@@ -25,6 +25,10 @@ public interface AnswerMapper {
 
 	public void publicAnswer(AnswerVO answer);
 
-	public void TrashPublic(AnswerVO answer);
+	public void trashPublic(AnswerVO answer);
+
+	public List<AnswerVO> readTrash(int member_num);
+
+	//public void AnswerCount(AnswerVO answer);
 
 }
