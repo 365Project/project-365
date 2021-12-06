@@ -7,9 +7,9 @@
 2021.11 ~ 진행중
 
 ## Stack
-• 기술언어: Java
-• 프레임워크: Spring frameWork
-• DB PlugIn: Mybatis
-• DB MS: Mysql(MariaDB)
-• Server: Tomcat8.5
-• 형상관리: Git
+- 기술언어: Java
+- 프레임워크: Spring frameWork
+- DB PlugIn: Mybatis
+- DB MS: Mysql(MariaDB)
+- Server: Tomcat8.5
+- 형상관리: Git
