@@ -15,14 +15,22 @@ public interface AnswerService {
 	public AnswerVO updateAnswerPage(int answer_num);
 	//public AnswerVO UpdateAnswer(int answer_num, int member_num);
 	public void updateAnswer(AnswerVO answer);
-	public void updateDelete(AnswerVO answer);
+	public int updateDelete(AnswerVO answer);
 	public void publicAnswer(AnswerVO answer);
-	public void trashPublic(AnswerVO answer);
-	//public int updateCount(AnswerVO answer);
+	
+	public int trashPublic(AnswerVO answer);
 	public List<AnswerVO> readTrash(int member_num);
-	public int updateCountUp(AnswerCountVO answercount);
+	//public int deleteAnswer(int answer_num);
+	
 	public int count(AnswerCountVO answercount);
 	public void setCount(AnswerCountVO answercount);
+	//public int count(int question_num, int member_num);
+	
+	
+	public int updateCountUp(AnswerCountVO answercount);
+	public int updateCountDown(AnswerCountVO answercount);
+	
+	
 	
 	
 	

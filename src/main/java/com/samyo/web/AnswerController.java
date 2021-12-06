@@ -6,13 +6,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.samyo.domain.AnswerCountVO;
 import com.samyo.domain.AnswerVO;
+
 import com.samyo.service.AnswerService;
 
 @CrossOrigin(origins = "*")
@@ -30,7 +33,8 @@ public class AnswerController {
 	
 	
 	@Autowired
-	private AnswerService answerService;	
+	private AnswerService answerService;
+
 
 	//답변 작성하기 ,POST
 	@RequestMapping("/answers/new")
@@ -44,17 +48,20 @@ public class AnswerController {
 		//answer.setAnswer_num(6);
 		//answer.setAnswer_year(year);
 		//answer.setAnswer_date(date);
-		answer.setAnswer_year("2021");
-		answer.setAnswer_date("0103");
-		answer.setAnswer("d님의 답변입니다!");
+		answer.setAnswer_year("2022");
+		answer.setAnswer_date("0104");
+		answer.setAnswer("d님의 21년 답변");
 		answer.setPublic_answer("Y");
-		answer.setQuestion_num(3);
+		answer.setQuestion_num(4);
 		answer.setMember_num(2);
 		answer.setAnswer_delete("N");
 		answer.setDelete_date(null);
 
 		int result = answerService.insertAnswer(answer);
 		int result2=0;
+		int result3=0;
+		
+		//insetAnswer성공시 (답변등록 성공시) 아래의 조건 진행
 		if (result == 1 ) {
 			
 			AnswerCountVO answercount = new AnswerCountVO();
@@ -62,11 +69,15 @@ public class AnswerController {
 			answercount.setQuestion_num(answer.getQuestion_num());
 			
 			result2 = answerService.count(answercount);
+			
+			//answer_count테이블에 해당 질문에대한 답변이 존재하는지 확인
 			if (result2==1) { //셋팅
 				answerService.setCount(answercount);
+				result3 =1;
 			}
 			else {//업또는 다운
 				answerService.updateCountUp(answercount);
+				result3 =1;
 				
 			}
 			//AnswerCountVO answercount = new AnswerCountVO();
@@ -78,10 +89,11 @@ public class AnswerController {
 		}
 		else {
 			System.out.println("실패!!!!!!!!!!!!");
-			result2=0;
+			result3=0;
 		}
 		//return result2;
-		return result;
+		System.out.println("성공 1, 실패 0 : " + result3);
+		return result3;
 		
 	}
 	
@@ -156,8 +168,8 @@ public class AnswerController {
 	
 	
 	//일기장> 내답변 삭제(휴지통으로)
-	@RequestMapping(value="/answers/{answer_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
-	public void updateDelete(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+	@RequestMapping(value="/answers/trashes/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
+	public int updateDelete(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
 		
 		System.out.println("삭제 수정기능 시작! : controller name : updateDelete");
 		
@@ -166,21 +178,47 @@ public class AnswerController {
 		answer.setMember_num(member_num);
 		answer.setAnswer_delete("Y"); // Y=휴지통으로
 		answer.setDelete_date("20211205"); //휴지통에 넣은 날짜
+		answer.setQuestion_num(4);
+		
 		
 		System.out.println("Answer_delete: "+answer.getAnswer_delete());
 		System.out.println("Delete_date: "+answer.getDelete_date());
 		System.out.println("Answer_num: " +answer.getAnswer_num());
 		System.out.println("member_num: " +answer.getMember_num());
 		
-		answerService.updateDelete(answer);
+		int result = answerService.updateDelete(answer);
 		System.out.println("=========삭제 수정완료=========");
+		
+		//int result = answerService.insertAnswer(answer);
+		int result2=0;
+		
+		//answer_delete값 변경 완료시 실행
+		if (result == 1 ) {
+			
+			AnswerCountVO answercount = new AnswerCountVO();
+			answercount.setMember_num(answer.getMember_num());
+			answercount.setQuestion_num(answer.getQuestion_num());
+			
+			System.out.println("answer.getMember_num(): "+answer.getMember_num());
+			System.out.println("answer.getQuestion_num(): "+answer.getQuestion_num());
+			result2 = answerService.updateCountDown(answercount);	
+			
+		}
+		else {
+			System.out.println("실패!!!!!!!!!!!!");
+			result2=0;
+		}
+		System.out.println("성공 1, 실패 0 : " + result2);
+		return result2;
+		//return result;
+		
 		
 	}
 	
 	//================== 휴지통 ==========================
 	//휴지통 > 되돌리기 버튼(답변 복구)
 	@RequestMapping(value="/trashes/settings/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
-	public void trashPublic(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+	public int trashPublic(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
 		
 		System.out.println("답변 복원하기 시작! : controller name : TrashPublic");
 		
@@ -189,16 +227,40 @@ public class AnswerController {
 		answer.setMember_num(member_num);
 		answer.setAnswer_delete("N"); // N=내일기장으로
 		answer.setDelete_date(""); //휴지통에 넣은 날짜
+		answer.setQuestion_num(4);
 		
-		System.out.println("Answer_delete: "+answer.getAnswer_delete());
-		System.out.println("Delete_date: "+answer.getDelete_date());
-		System.out.println("Answer_num: " +answer.getAnswer_num());
-		System.out.println("member_num: " +answer.getMember_num());
+		//System.out.println("Answer_delete: "+answer.getAnswer_delete());
+		//System.out.println("Delete_date: "+answer.getDelete_date());
+		//System.out.println("Answer_num: " +answer.getAnswer_num());
 		
-		answerService.trashPublic(answer);
+		
+		int result = answerService.trashPublic(answer);
 		System.out.println("=========삭제 수정완료=========");
 		
+		int result2=0;
+		
+		//answer_delete값 변경 완료시 실행(다시 내일기장으로 답변 복구)
+		if (result == 1 ) {
+			
+			AnswerCountVO answercount = new AnswerCountVO();
+			answercount.setMember_num(answer.getMember_num());
+			answercount.setQuestion_num(answer.getQuestion_num());
+			System.out.println("member_num: " +answer.getMember_num());
+			System.out.println("Question_num: " +answer.getQuestion_num());
+			
+			result2 = answerService.updateCountUp(answercount);	
+			
+		}
+		else {
+			System.out.println("실패!!!!!!!!!!!!");
+			result2=0;
+		}
+		System.out.println("성공 1, 실패 0 : " + result2);
+		return result2;
+		//return result;
+		
 	}
+	
 
 	//휴지통 > 삭제한 답변 모두 보기
 	@GetMapping("/trashes/{member_num}")
@@ -211,7 +273,19 @@ public class AnswerController {
 		return answer;
 	}
 	
-	
+	//휴지통 > 진짜 삭제하기
+	/*@DeleteMapping("/trashes/{answer_num}")
+	public int deleteAnswer(@PathVariable("answer_num") int answer_num) {
+		System.out.println("답변 복원하기 시작! : controller name : deleteAnswer");
+		System.out.println("answer_num: "+answer_num);
+		
+		int result=0;
+		//int result = answerService.deleteAnswer(answer_num);
+		
+		System.out.println("성공 1, 실패 0 : " + result);
+		return result;
+		
+	}*/
 	
 	
 }

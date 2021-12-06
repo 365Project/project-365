@@ -26,15 +26,21 @@ public interface AnswerMapper {
 
 	public void publicAnswer(AnswerVO answer);
 
-	public void trashPublic(AnswerVO answer);
+	public int trashPublic(AnswerVO answer);
 
 	public List<AnswerVO> readTrash(int member_num);
 
-	public int updateCountUp(AnswerCountVO answercount);
+	
 
 	public String count(AnswerCountVO answercount);
 
 	public void setCount(AnswerCountVO answercount);
+
+	public int updateCountUp(AnswerCountVO answercount);
+
+	public int updateCountDown(AnswerCountVO answercount);
+
+	//public void deleteAnswer(int answer_num);
 
 	
 
