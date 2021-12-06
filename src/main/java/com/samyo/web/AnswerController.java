@@ -46,29 +46,45 @@ public class AnswerController {
 		
 		AnswerVO answer = new AnswerVO();
 		
-		answer.setAnswer_num(4);
+		//answer.setAnswer_num(6);
 		//answer.setAnswer_year(year);
 		//answer.setAnswer_date(date);
-		answer.setAnswer_year("2023");
-		answer.setAnswer_date("0101");
-		answer.setAnswer("answer3");
+		answer.setAnswer_year("2021");
+		answer.setAnswer_date("0103");
+		answer.setAnswer("d님의 답변입니다!");
 		answer.setPublic_answer("Y");
-		answer.setQuestion_num(1);
+		answer.setQuestion_num(3);
 		answer.setMember_num(2);
 		answer.setAnswer_delete("N");
 		answer.setDelete_date(null);
 
 		int result = answerService.insertAnswer(answer);
-		/*int result2=0;
-		if (result == 1) {
+		int result2=0;
+		if (result == 1 ) {
+			
 			AnswerCountVO answercount = new AnswerCountVO();
-			result2 = answerService.updateCount(answer);
+			answercount.setMember_num(answer.getMember_num());
+			answercount.setQuestion_num(answer.getQuestion_num());
+			
+			result2 = answerService.count(answercount);
+			if (result2==1) { //셋팅
+				answerService.setCount(answercount);
+			}
+			else {//업또는 다운
+				answerService.updateCountUp(answercount);
+				
+			}
+			//AnswerCountVO answercount = new AnswerCountVO();
+			//answercount.setMember_num(answer.getMember_num());
+			//answercount.setQuestion_num(answer.getQuestion_num());
+			
+			//result2 = answerService.updateCountUp(answercount);
 			
 		}
 		else {
 			System.out.println("실패!!!!!!!!!!!!");
 			result2=0;
-		}*/
+		}
 		//return result2;
 		return result;
 		

@@ -3,6 +3,7 @@ package com.samyo.mapper;
 import java.util.HashMap;
 import java.util.List;
 
+import com.samyo.domain.AnswerCountVO;
 import com.samyo.domain.AnswerVO;
 import com.samyo.domain.QuestionVO;
 
@@ -29,6 +30,12 @@ public interface AnswerMapper {
 
 	public List<AnswerVO> readTrash(int member_num);
 
-	//public void AnswerCount(AnswerVO answer);
+	public int updateCountUp(AnswerCountVO answercount);
+
+	public String count(AnswerCountVO answercount);
+
+	public void setCount(AnswerCountVO answercount);
+
+	
 
 }

@@ -10,7 +10,26 @@
 			(#{answer_num} ,#{answer_year},#{answer_date},#{answer},#{public_answer},#{question_num},#{member_num},#{answer_delete},#{delete_date}); 
 	
 	</insert>
+	<insert id="setCount" >
+		insert into 
+			ANSWER_COUNT
+			( member_num, count, question_num ) 
+		values 
+			( #{member_num}, count+1, #{question_num}); 
+		
+	</insert>
 	
+	<select id="count" parameterType="hashmap" resultType="String" >
+		select 
+			count
+		from 
+			ANSWER_COUNT
+		where 
+			question_num= #{question_num}
+		and
+			member_num= #{member_num}
+
+	</select>
 	<select id="selectAnswer" parameterType="hashmap" resultType="com.samyo.domain.AnswerVO" >
 		select 
 			*
@@ -63,6 +82,16 @@
 			public_answer= #{public_answer}
 		WHERE 
 			answer_num= #{answer_num}
+		and
+			member_num= #{member_num};
+	</update>
+	<update id="updateCountUp" >
+		UPDATE
+			ANSWER_COUNT 
+		SET 
+			count=count+1
+		WHERE 
+			question_num= #{question_num}
 		and
 			member_num= #{member_num};
 	</update>

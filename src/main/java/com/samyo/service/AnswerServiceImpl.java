@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.samyo.domain.AnswerCountVO;
 import com.samyo.domain.AnswerVO;
 import com.samyo.domain.QuestionVO;
 import com.samyo.mapper.AnswerMapper;
@@ -109,20 +110,48 @@ public class AnswerServiceImpl implements AnswerService {
 	}
 
 
-	/*@Override
-	public int updateCount(AnswerVO answer) {
+	@Override
+	public int updateCountUp(AnswerCountVO answercount) {
 		System.out.println("답변count !/ service name: updateCount");
 		
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 		
-		answerMapper.AnswerCount(answer);
+		int result = answerMapper.updateCountUp(answercount);
 		
-		if(true) {
-			return=1;
+		if(result==1) {
+			
+			return 1;
 		}
 		else {
 			return 0;
 		}
 		
-	}*/
+	}
+
+
+	@Override
+	public int count(AnswerCountVO answercount) {
+		System.out.println("답변 잇는지확인 !/ service name: count");
+		
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+		String result = answerMapper.count(answercount);
+
+		if(result!=null) {
+			return 0;//up또는 down으로
+			
+		}
+		else {
+			return 1;//setting으로
+		}
+		
+	}
+
+
+	@Override
+	public void setCount(AnswerCountVO answercount) {
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+		answerMapper.setCount(answercount);
+		
+		
+	}
 }
