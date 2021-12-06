@@ -20,6 +20,8 @@
 			question_num= #{question_num}
 		and
 			member_num= #{member_num}
+		and
+			answer_delete = "N"
 		
 	</select>
 	
@@ -64,15 +66,32 @@
 		and
 			member_num= #{member_num};
 	</update>
-	<update id="TrashPublic" >
+	
+	
+	
+
+	<select id="readTrash" parameterType="int" resultType="com.samyo.domain.AnswerVO">	
+		select 
+			*
+		from 
+			ANSWER 
+		where 
+			question_num= #{question_num}
+		and
+			member_num= #{member_num}
+		and
+			answer_delete = "Y"
+	</select>
+	<update id="trashPublic" >
 		UPDATE
 			ANSWER 
 		SET 
-			answer_delete= "N", delete_date= null
+			public_answer= #{public_answer}
 		WHERE 
 			answer_num= #{answer_num}
 		and
-			member_num= #{member_num};
+			member_num= #{member_num};	
 	</update>
+	
 
 </mapper>

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.samyo.domain.AnswerCountVO;
 import com.samyo.domain.AnswerVO;
 import com.samyo.service.AnswerService;
 
@@ -39,8 +39,8 @@ public class AnswerController {
 
 	//답변 작성하기 ,POST
 	@RequestMapping("/answers/new")
-	public AnswerVO Write() throws Exception {
-		System.out.println("답변작성 페이지/ controller name: Write");
+	public int write() throws Exception {
+		System.out.println("답변작성 페이지/ controller name: write");
 		System.out.println("year:"+year);
 		System.out.println("date:"+date);
 		
@@ -58,18 +58,30 @@ public class AnswerController {
 		answer.setAnswer_delete("N");
 		answer.setDelete_date(null);
 
-		answerService.insertAnswer(answer);
-		return answer;
+		int result = answerService.insertAnswer(answer);
+		/*int result2=0;
+		if (result == 1) {
+			AnswerCountVO answercount = new AnswerCountVO();
+			result2 = answerService.updateCount(answer);
+			
+		}
+		else {
+			System.out.println("실패!!!!!!!!!!!!");
+			result2=0;
+		}*/
+		//return result2;
+		return result;
 		
 	}
 	
 	//내답변(일기장) 전체 조회			
 	@GetMapping("/answers/{question_num}/{member_num}")
-	public List<AnswerVO> Read(@PathVariable("question_num") int question_num,@PathVariable("member_num") int member_num) throws Exception {
+	public List<AnswerVO> read(@PathVariable("question_num") int question_num,@PathVariable("member_num") int member_num) throws Exception {
+		System.out.println("수정 페이지/ controller name: read");
 		System.out.println("question_num: "+question_num);
 		System.out.println("member_num: "+member_num);
 		
-		List<AnswerVO> answer = answerService.ReadAnswer(question_num,member_num);
+		List<AnswerVO> answer = answerService.readAnswer(question_num,member_num);
 		System.out.println("--2-");
 	
 		//콘솔찍어보기
@@ -84,10 +96,10 @@ public class AnswerController {
 	//내답변 수정버튼>수정페이지
 	@GetMapping("/answers/pages/{answer_num}")
 	public AnswerVO UpdatePage(@PathVariable("answer_num") int answer_num) throws Exception {
-		System.out.println("수정 페이지/ controller name: Update");
+		System.out.println("수정 페이지/ controller name: updatePage");
 		
 		
-		AnswerVO result = answerService.UpdateAnswerPage(answer_num);
+		AnswerVO result = answerService.updateAnswerPage(answer_num);
 		
 		return result;
 		
@@ -95,8 +107,8 @@ public class AnswerController {
 	
 	//수정페이지 > 내용수정후 > 수정버튼
 	@RequestMapping(value="/answers/pages/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.PATCH} )
-	public void Update(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
-		System.out.println("수정기능 시작! : controller name : Update");
+	public void update(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
+		System.out.println("수정기능 시작! : controller name : update");
 		
 		AnswerVO answer = new AnswerVO();
 		answer.setAnswer("이건 바뀔 내용이에요 !!!!");
@@ -108,15 +120,15 @@ public class AnswerController {
 		System.out.println("public_answer: "+answer.getPublic_answer());
 		System.out.println("Answer_num: " +answer.getAnswer_num());
 		
-		answerService.UpdateAnswer(answer);
+		answerService.updateAnswer(answer);
 		System.out.println("=========수정완료=========");
 	
 	}
 	
 	//내일기장 > 공개여부 버튼
 	@RequestMapping(value="/settings/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.PATCH} )
-	public void PublicAnswer(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
-		System.out.println("공개여부 변경 시작! : controller name : PublicAnswer");
+	public void publicAnswer(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
+		System.out.println("공개여부 변경 시작! : controller name : publicAnswer");
 		
 		AnswerVO answer = new AnswerVO();
 		answer.setPublic_answer("Y");
@@ -134,9 +146,9 @@ public class AnswerController {
 	
 	//일기장> 내답변 삭제(휴지통으로)
 	@RequestMapping(value="/answers/{answer_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
-	public void UpdateDelete(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+	public void updateDelete(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
 		
-		System.out.println("삭제 수정기능 시작! : controller name : UpdateDelete");
+		System.out.println("삭제 수정기능 시작! : controller name : updateDelete");
 		
 		AnswerVO answer = new AnswerVO();
 		answer.setAnswer_num(answer_num);
@@ -149,7 +161,7 @@ public class AnswerController {
 		System.out.println("Answer_num: " +answer.getAnswer_num());
 		System.out.println("member_num: " +answer.getMember_num());
 		
-		answerService.UpdateDelete(answer);
+		answerService.updateDelete(answer);
 		System.out.println("=========삭제 수정완료=========");
 		
 	}
@@ -157,7 +169,7 @@ public class AnswerController {
 	//================== 휴지통 ==========================
 	//휴지통 > 되돌리기 버튼(답변 복구)
 	@RequestMapping(value="/trashes/settings/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
-	public void TrashPublic(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+	public void trashPublic(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
 		
 		System.out.println("답변 복원하기 시작! : controller name : TrashPublic");
 		
@@ -172,12 +184,21 @@ public class AnswerController {
 		System.out.println("Answer_num: " +answer.getAnswer_num());
 		System.out.println("member_num: " +answer.getMember_num());
 		
-		answerService.TrashPublic(answer);
+		answerService.trashPublic(answer);
 		System.out.println("=========삭제 수정완료=========");
 		
 	}
 
+	//휴지통 > 삭제한 답변 모두 보기
+	@GetMapping("/trashes/{member_num}")
+	public List<AnswerVO> trashRead(@PathVariable("member_num") int member_num) throws Exception {
+		System.out.println("답변 복원하기 시작! : controller name : trashRead");
+		System.out.println("member_num: "+member_num);
+		
+		List<AnswerVO> answer = answerService.readTrash(member_num);
 	
+		return answer;
+	}
 	
 	
 	
