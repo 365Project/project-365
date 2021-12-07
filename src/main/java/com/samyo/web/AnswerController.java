@@ -149,14 +149,15 @@ public class AnswerController {
 	
 	//수정페이지 > 내용수정후 > 수정버튼
 	@RequestMapping(value="/answers/pages/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.PATCH} )
-	public void update(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
+	//public void update(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
+	public void update(@RequestBody AnswerVO answer)throws Exception {
 		System.out.println("수정기능 시작! : controller name : update");
 		
-		AnswerVO answer = new AnswerVO();
-		answer.setAnswer("이건 바뀔 내용이에요 !!!!");
+		//AnswerVO answer = new AnswerVO();
+		/*answer.setAnswer("이건 바뀔 내용이에요 !!!!");
 		answer.setPublic_answer("Y");
 		answer.setAnswer_num(answer_num);
-		answer.setMember_num(member_num);
+		answer.setMember_num(member_num);*/
 		
 		System.out.println("Answer: "+answer.getAnswer());
 		System.out.println("public_answer: "+answer.getPublic_answer());
