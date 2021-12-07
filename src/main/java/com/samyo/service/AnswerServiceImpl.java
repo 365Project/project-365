@@ -172,11 +172,10 @@ public class AnswerServiceImpl implements AnswerService {
 		return 1;// 성공
 	}
 
-
-	/*@Override
+	@Override
 	public int deleteAnswer(int answer_num) {
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 		answerMapper.deleteAnswer(answer_num);
 		return 1;//성공
-	}*/
+	}
 }
