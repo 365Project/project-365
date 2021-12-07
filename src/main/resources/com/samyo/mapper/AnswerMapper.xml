@@ -5,9 +5,9 @@
 
 	<insert id="insertAnswer">
 		insert into ANSWER 
-			(answer_num ,answer_year ,answer_date,answer ,public_answer ,question_num ,member_num ,answer_delete ,delete_date) 
+			(answer_year ,answer_date,answer ,public_answer ,question_num ,member_num ,answer_delete) 
 		values 
-			(#{answer_num} ,#{answer_year},#{answer_date},#{answer},#{public_answer},#{question_num},#{member_num},#{answer_delete},#{delete_date}); 
+			(#{answer_year},#{answer_date},#{answer},#{public_answer},#{question_num},#{member_num},#{answer_delete}); 
 	
 	</insert>
 	<insert id="setCount" >
