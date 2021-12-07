@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.samyo.domain.AnswerCountVO;
 import com.samyo.domain.AnswerVO;
 import com.samyo.domain.QuestionVO;
+
 import com.samyo.mapper.AnswerMapper;
 
 @Service("answerService")
@@ -67,13 +68,15 @@ public class AnswerServiceImpl implements AnswerService {
 
 
 	@Override
-	public void updateDelete(AnswerVO answer) {
+	public int updateDelete(AnswerVO answer) {
 		
 		System.out.println("삭제 여부 수정 하기!/ service name: UpdateDelete");
 		
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 	
 		answerMapper.updateDelete(answer);
+		
+		return 1;//성공
 		
 	}
 
@@ -90,12 +93,14 @@ public class AnswerServiceImpl implements AnswerService {
 
 
 	@Override
-	public void trashPublic(AnswerVO answer) {
+	public int trashPublic(AnswerVO answer) {
 		System.out.println("답변 복원 하기 !/ service name: TrashPublic");
 		
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 	
 		answerMapper.trashPublic(answer);
+		
+		return 1;//성공
 		
 	}
 
@@ -110,6 +115,35 @@ public class AnswerServiceImpl implements AnswerService {
 	}
 
 
+	//answer_count테이블에 답변이 존재하는지 확인
+	@Override
+	public int count(AnswerCountVO answercount) {
+		System.out.println("답변 잇는지확인 !/ service name: count");
+		
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+		String result = answerMapper.count(answercount);
+
+		if(result!=null) {
+			return 0;//up또는 down으로
+			
+		}
+		else {
+			return 1;//setting으로
+		}
+		
+	}
+
+	//최초 답변등록시 answer_count테이블 insert
+	@Override
+	public void setCount(AnswerCountVO answercount) {
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+		answerMapper.setCount(answercount);
+		
+		
+	}
+
+
+	//답변 횟수 업(등록)
 	@Override
 	public int updateCountUp(AnswerCountVO answercount) {
 		System.out.println("답변count !/ service name: updateCount");
@@ -128,30 +162,21 @@ public class AnswerServiceImpl implements AnswerService {
 		
 	}
 
-
+	//답변횟수 다운 (삭제)
 	@Override
-	public int count(AnswerCountVO answercount) {
-		System.out.println("답변 잇는지확인 !/ service name: count");
-		
+	public int updateCountDown(AnswerCountVO answercount) {
+		System.out.println("답변count !/ service name: updateCountDown");
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
-		String result = answerMapper.count(answercount);
-
-		if(result!=null) {
-			return 0;//up또는 down으로
-			
-		}
-		else {
-			return 1;//setting으로
-		}
-		
+		answerMapper.updateCountDown(answercount);
+		System.out.println("answercount");
+		return 1;// 성공
 	}
 
 
-	@Override
-	public void setCount(AnswerCountVO answercount) {
+	/*@Override
+	public int deleteAnswer(int answer_num) {
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
-		answerMapper.setCount(answercount);
-		
-		
-	}
+		answerMapper.deleteAnswer(answer_num);
+		return 1;//성공
+	}*/
 }

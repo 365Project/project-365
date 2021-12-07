@@ -19,16 +19,16 @@
 		
 	</insert>
 	
-	<select id="count" parameterType="hashmap" resultType="String" >
-		select 
+	<select id="count" parameterType="com.samyo.domain.AnswerCountVO" resultType="int">
+		select
 			count
-		from 
+		from
 			ANSWER_COUNT
 		where 
 			question_num= #{question_num}
 		and
 			member_num= #{member_num}
-
+	
 	</select>
 	<select id="selectAnswer" parameterType="hashmap" resultType="com.samyo.domain.AnswerVO" >
 		select 
@@ -69,7 +69,7 @@
 		UPDATE
 			ANSWER 
 		SET 
-			answer_delete = #{answer_delete}, delete_date= #{delete_date}
+			answer_delete = "Y", delete_date= #{delete_date}
 		WHERE 
 			answer_num= #{answer_num}
 		and
@@ -95,6 +95,16 @@
 		and
 			member_num= #{member_num};
 	</update>
+	<update id="updateCountDown" >
+		UPDATE
+			ANSWER_COUNT 
+		SET 
+			count=count-1
+		WHERE 
+			question_num= #{question_num}
+		and
+			member_num= #{member_num};
+	</update>
 	
 	
 	
@@ -115,12 +125,12 @@
 		UPDATE
 			ANSWER 
 		SET 
-			public_answer= #{public_answer}
+			answer_delete= "N"
 		WHERE 
 			answer_num= #{answer_num}
 		and
 			member_num= #{member_num};	
 	</update>
-	
+		
 
 </mapper>
