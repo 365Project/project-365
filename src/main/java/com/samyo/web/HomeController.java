@@ -36,4 +36,9 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("/login")
+	public String login() {
+		System.out.println("로그인 페이지 이동 !");
+		return "loginPage";
+	}
 }

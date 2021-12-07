@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class KakaoUserInfo {
+	/*
 	public static JsonNode getKakaoUserInfo(JsonNode accessToken) {
 
 		final String RequestUrl = "https://kapi.kakao.com/v2/user/me";
@@ -44,5 +45,5 @@ public class KakaoUserInfo {
 
 		return returnNode;
 	}
-
+*/
 }

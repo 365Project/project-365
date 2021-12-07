@@ -18,8 +18,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class KakaoAccessToken {
+	/*
 	public static JsonNode getKakaoAccessToken(String code) {
-
 		final String RequestUrl = "https://kauth.kakao.com/oauth/token"; // Host
 		final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 
@@ -60,4 +60,5 @@ public class KakaoAccessToken {
 
 		return returnNode;
 	}
+	 */
 }

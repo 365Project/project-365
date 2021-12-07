@@ -1,10 +1,10 @@
 package com.samyo.mapper;
 
-import com.samyo.domain.MemberVO;
+import java.util.HashMap;
 
 public interface MemberMapper {
 
-	public void insertMember(MemberVO member);
-	
-	public int getMember(String email);
+	public void insertMember(HashMap<String, Object> userInfo);
+
+	public int getMember(Object id);
 }

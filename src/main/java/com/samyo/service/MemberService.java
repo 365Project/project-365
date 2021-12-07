@@ -1,10 +1,10 @@
 package com.samyo.service;
 
-import com.samyo.domain.MemberVO;
+import java.util.HashMap;
 
 public interface MemberService {
 
-	public int insertMember(MemberVO member) throws Exception;
+	public int insertMember(HashMap<String, Object> userInfo) throws Exception;
 
-	public int getMember(String email) throws Exception;
+	public int getMember(Object id) throws Exception;
 }

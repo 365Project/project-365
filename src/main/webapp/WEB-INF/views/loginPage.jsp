@@ -39,21 +39,6 @@
 			});
 
 		}
-
-		$(document).ready(
-				function() {
-
-					var kakaoInfo = '${kakaoInfo}';
-
-					if (kakaoInfo != "") {
-						var data = JSON.parse(kakaoInfo);
-
-						alert("카카오로그인 성공 \n accessToken : "
-								+ data['accessToken']);
-						alert("user : \n" + "email : " + data['email']
-								+ "\n nickname : " + data['nickname']);
-					}
-				});
 	</script>
 </body>
 </html>
