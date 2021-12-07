@@ -1,5 +1,7 @@
 package com.samyo.service;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,18 +16,18 @@ public class MemberServiceImpl implements MemberService {
 	private SqlSession sqlSession;
 
 	@Override
-	public int insertMember(MemberVO member) throws Exception {
+	public int insertMember(HashMap<String, Object> userInfo) throws Exception {
 
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		memberMapper.insertMember(member);
+		memberMapper.insertMember(userInfo);
 		return 0;
 	}
 
 	@Override
-	public int getMember(String email) throws Exception {
+	public int getMember(Object id) throws Exception {
 
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		int res = memberMapper.getMember(email);
+		int res = memberMapper.getMember(id);
 
 		return res;
 	}

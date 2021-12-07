@@ -2,15 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.samyo.mapper.MemberMapper">
-	
-	<insert id="insertMember">
-		insert into MEMBER 
+
+	<insert id="insertMember" parameterType="hashmap">
+		insert into
+		MEMBER
 		(id, nickname, email, gender, age_range, token, joindate)
-		values 
+		values
 		(#{id}, #{nickname}, #{email}, #{gender}, #{age_range}, #{token}, now())
 	</insert>
-	
-	<select id="getMember" parameterType="String" resultType="int">
-		select count(email) as email from MEMBER where email = #{email}
+
+	<select id="getMember" parameterType="Object" resultType="int">
+		select
+		count(id) as id from MEMBER where id = #{id}
 	</select>
 </mapper>
