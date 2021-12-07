@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.samyo.domain.AnswerCountVO;
@@ -38,26 +41,37 @@ public class AnswerController {
 
 	//답변 작성하기 ,POST
 	@RequestMapping("/answers/new")
-	public int write() throws Exception {
+	@ResponseBody
+	public int write(@RequestParam("answer_year") String answer_year, @RequestParam("answer_date") String answer_date,
+			@RequestParam("answer") String answer,@RequestParam("public_answer") String public_answer,
+			@RequestParam("question_num") int question_num,@RequestParam("member_num") int member_num,
+			@RequestParam("answer_delete") String answer_delete) throws Exception {
 		System.out.println("답변작성 페이지/ controller name: write");
 		System.out.println("year:"+year);
 		System.out.println("date:"+date);
 		
-		AnswerVO answer = new AnswerVO();
+		AnswerVO answervo = new AnswerVO();
+		
+		
 		
 		//answer.setAnswer_num(6);
 		//answer.setAnswer_year(year);
 		//answer.setAnswer_date(date);
-		answer.setAnswer_year("2022");
-		answer.setAnswer_date("0104");
-		answer.setAnswer("d님의 21년 답변");
-		answer.setPublic_answer("Y");
-		answer.setQuestion_num(4);
-		answer.setMember_num(2);
-		answer.setAnswer_delete("N");
-		answer.setDelete_date(null);
-
-		int result = answerService.insertAnswer(answer);
+		answervo.setAnswer_year(answer_year);
+		answervo.setAnswer_date(answer_date);
+		answervo.setAnswer(answer);
+		answervo.setPublic_answer(public_answer);
+		answervo.setQuestion_num(question_num);
+		answervo.setMember_num(member_num);
+		answervo.setAnswer_delete(answer_delete);
+		
+		System.out.println("answerVO"+answervo);
+		System.out.println("answerVO.getAnswer_year: "+answervo.getAnswer_year());
+		System.out.println("answerVO.getanswer: "+answervo.getAnswer());
+		System.out.println("answerVO.getPublic_answer: "+answervo.getPublic_answer());
+		//answervo.setDelete_date(null);
+		System.out.println("++++++++++++++++++++++++++");
+		int result = answerService.insertAnswer(answervo);
 		int result2=0;
 		int result3=0;
 		
@@ -65,8 +79,8 @@ public class AnswerController {
 		if (result == 1 ) {
 			
 			AnswerCountVO answercount = new AnswerCountVO();
-			answercount.setMember_num(answer.getMember_num());
-			answercount.setQuestion_num(answer.getQuestion_num());
+			answercount.setMember_num(answervo.getMember_num());
+			answercount.setQuestion_num(answervo.getQuestion_num());
 			
 			result2 = answerService.count(answercount);
 			
