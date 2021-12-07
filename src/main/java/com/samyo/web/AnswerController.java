@@ -289,7 +289,7 @@ public class AnswerController {
 		
 		if (result == 1 ) {
 			
-			if
+			
 			AnswerCountVO answercount = new AnswerCountVO();
 			answercount.setMember_num(answer.getMember_num());
 			answercount.setQuestion_num(answer.getQuestion_num());
