@@ -29,6 +29,7 @@ public interface AnswerService {
 	
 	public int updateCountUp(AnswerCountVO answercount);
 	public int updateCountDown(AnswerCountVO answercount);
+	public int deleteAnswer(int answer_num);
 	
 	
 	

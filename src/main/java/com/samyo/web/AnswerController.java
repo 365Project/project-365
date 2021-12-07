@@ -274,18 +274,38 @@ public class AnswerController {
 	}
 	
 	//휴지통 > 진짜 삭제하기
-	/*@DeleteMapping("/trashes/{answer_num}")
+	@DeleteMapping("/trashes/{answer_num}")
 	public int deleteAnswer(@PathVariable("answer_num") int answer_num) {
-		System.out.println("답변 복원하기 시작! : controller name : deleteAnswer");
+		System.out.println("답변 삭제 시작! : controller name : deleteAnswer");
 		System.out.println("answer_num: "+answer_num);
 		
-		int result=0;
-		//int result = answerService.deleteAnswer(answer_num);
+		AnswerVO answer = new AnswerVO();
+		answer.setQuestion_num(4);
+		answer.setMember_num(2);
+		answer.setAnswer_num(answer_num);
 		
-		System.out.println("성공 1, 실패 0 : " + result);
-		return result;
+		int result=answerService.deleteAnswer(answer_num);
+		int result2=0;
 		
-	}*/
+		if (result == 1 ) {
+			
+			
+			AnswerCountVO answercount = new AnswerCountVO();
+			answercount.setMember_num(answer.getMember_num());
+			answercount.setQuestion_num(answer.getQuestion_num());
+			System.out.println("getAnswer_num: " +answer.getAnswer_num());
+			
+			result2 = answerService.updateCountDown(answercount);	
+			
+		}
+		else {
+			System.out.println("실패!!!!!!!!!!!!");
+			result2=0;
+		}
+		System.out.println("성공 1, 실패 0 : " + result2);
+		return result2;
+		
+	}
 	
 	
 }

@@ -131,6 +131,14 @@
 		and
 			member_num= #{member_num};	
 	</update>
+	
+	<delete id="deleteAnswer">
+	DELETE FROM 
+		ANSWER 
+	WHERE 
+		answer_num = #{answer_num};
+
+	</delete>
 		
 
 </mapper>
