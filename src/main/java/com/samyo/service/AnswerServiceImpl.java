@@ -123,16 +123,26 @@ public class AnswerServiceImpl implements AnswerService {
 		System.out.println("답변 잇는지확인 !/ service name: count");
 		
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
-		String result = answerMapper.count(answercount);
+		Object result = answerMapper.count(answercount);
 
-		if(result!=null) {
-			return 0;//up또는 down으로
+		if(result.equals(null)|| result.equals(0)) {
+			return 1;//setting으로
 			
 		}
 		else {
-			return 1;//setting으로
+			return 0;//up또는 down으로
 		}
 		
+	}
+	//달력에서 뿌려주기위한 답변갯수 조회
+	@Override
+	public int countSelect(AnswerCountVO answercount) {
+		System.out.println("답변 갯수를 확인 !/ service name: countSelect");
+		
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+		Object result = answerMapper.count(answercount);
+		
+		return (int) result;//성공
 	}
 
 	//최초 답변등록시 answer_count테이블 insert
@@ -180,4 +190,7 @@ public class AnswerServiceImpl implements AnswerService {
 		answerMapper.deleteAnswer(answer_num);
 		return 1;//성공
 	}
+
+
+	
 }

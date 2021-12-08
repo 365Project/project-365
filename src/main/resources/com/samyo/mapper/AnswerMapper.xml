@@ -30,6 +30,7 @@
 			member_num= #{member_num}
 	
 	</select>
+	
 	<select id="selectAnswer" parameterType="hashmap" resultType="com.samyo.domain.AnswerVO" >
 		select 
 			*
