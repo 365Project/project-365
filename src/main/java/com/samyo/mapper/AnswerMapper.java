@@ -32,7 +32,8 @@ public interface AnswerMapper {
 
 	
 
-	public String count(AnswerCountVO answercount);
+	//public String count(AnswerCountVO answercount);
+	public Object count(AnswerCountVO answercount);
 
 	public void setCount(AnswerCountVO answercount);
 
@@ -41,6 +42,8 @@ public interface AnswerMapper {
 	public int updateCountDown(AnswerCountVO answercount);
 
 	public void deleteAnswer(int answer_num);
+
+	public int countSelect(AnswerCountVO answercount);
 
 	
 

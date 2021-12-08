@@ -243,6 +243,31 @@ public class AnswerController {
 		
 		
 	}
+	//달력>날짜에 저장된 답변갯수 불러오기
+	@GetMapping("/numbers/{question_num}/{member_num}")
+	public int countSelect(@PathVariable("question_num") int question_num, @PathVariable("member_num") int member_num) {
+		System.out.println("날짜에 저장된 답변갯수 불러오기 : controller name : countSelect");
+		
+		int result=0;
+		int result2=0;
+		
+		AnswerCountVO answercount = new AnswerCountVO();
+		answercount.setMember_num(member_num);
+		answercount.setQuestion_num(question_num);
+		
+		result=answerService.countSelect(answercount);
+		
+		//성공실패 확인
+		if(result>-1) {
+			result2=1;
+		}
+		else {
+			result2=0;
+			System.out.println("countSelect 실패.");
+		}
+		System.out.println("성공 1, 실패 0 : " + result2);
+		return result;
+	}
 	
 	//================== 휴지통 ==========================
 	//휴지통 > 되돌리기 버튼(답변 복구)

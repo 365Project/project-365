@@ -22,7 +22,7 @@ public interface AnswerService {
 	public List<AnswerVO> readTrash(int member_num);
 	//public int deleteAnswer(int answer_num);
 	
-	public int count(AnswerCountVO answercount);
+	public int count(AnswerCountVO answercount); //하나라도 답변이 존재하는지 판단
 	public void setCount(AnswerCountVO answercount);
 	//public int count(int question_num, int member_num);
 	
@@ -30,6 +30,7 @@ public interface AnswerService {
 	public int updateCountUp(AnswerCountVO answercount);
 	public int updateCountDown(AnswerCountVO answercount);
 	public int deleteAnswer(int answer_num);
+	public int countSelect(AnswerCountVO answercount); //달력에 뿌리기위해 답변 갯수 조회
 	
 	
 	
