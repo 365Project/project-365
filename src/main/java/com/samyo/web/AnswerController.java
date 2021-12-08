@@ -170,44 +170,53 @@ public class AnswerController {
 	
 	//내일기장 > 공개여부 버튼
 	@RequestMapping(value="/settings/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.PATCH} )
-	public void publicAnswer(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
+	public int publicAnswer(@RequestBody AnswerVO answer, @PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
 		System.out.println("공개여부 변경 시작! : controller name : publicAnswer");
 		
-		AnswerVO answer = new AnswerVO();
-		answer.setPublic_answer("Y");
+		int result=0;
 		answer.setAnswer_num(answer_num);
 		answer.setMember_num(member_num);
 		
 		System.out.println("public_answer: "+answer.getPublic_answer());
 		System.out.println("Answer_num: " +answer.getAnswer_num());
+		System.out.println("Member_num: " +answer.getMember_num());
 		
-		answerService.publicAnswer(answer);
-		System.out.println("=========공개여부 수정완료=========");
-	
+		result=answerService.publicAnswer(answer);
+		System.out.println("성공 1, 실패 0 : " + result);
+		
+		return result;
 	}
 	
 	
 	//일기장> 내답변 삭제(휴지통으로)
 	@RequestMapping(value="/answers/trashes/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
-	public int updateDelete(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+	//public int updateDelete(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+	public int updateDelete(@RequestBody AnswerVO answer, @PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
 		
 		System.out.println("삭제 수정기능 시작! : controller name : updateDelete");
 		
-		AnswerVO answer = new AnswerVO();
 		answer.setAnswer_num(answer_num);
 		answer.setMember_num(member_num);
-		answer.setAnswer_delete("Y"); // Y=휴지통으로
-		answer.setDelete_date("20211205"); //휴지통에 넣은 날짜
-		answer.setQuestion_num(4);
-		
 		
 		System.out.println("Answer_delete: "+answer.getAnswer_delete());
 		System.out.println("Delete_date: "+answer.getDelete_date());
 		System.out.println("Answer_num: " +answer.getAnswer_num());
 		System.out.println("member_num: " +answer.getMember_num());
 		
-		int result = answerService.updateDelete(answer);
-		System.out.println("=========삭제 수정완료=========");
+		//프론트 단에서 삭제(answer_delete)값을 y로 주었는지 확인
+		int result=0;
+		String str =answer.getAnswer_delete();
+		System.out.println("str: "+str);
+		if (str.equals("Y")) {
+			result = answerService.updateDelete(answer);
+		}
+		else {
+			result=0;
+			System.out.println("삭제는 answer_delete값이 Y여야랍니다.");
+			
+		}
+		
+		//System.out.println("=========삭제 수정완료=========");
 		
 		//int result = answerService.insertAnswer(answer);
 		int result2=0;
@@ -238,25 +247,36 @@ public class AnswerController {
 	//================== 휴지통 ==========================
 	//휴지통 > 되돌리기 버튼(답변 복구)
 	@RequestMapping(value="/trashes/settings/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
-	public int trashPublic(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+	public int trashPublic(@RequestBody AnswerVO answer,@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
 		
 		System.out.println("답변 복원하기 시작! : controller name : TrashPublic");
 		
-		AnswerVO answer = new AnswerVO();
 		answer.setAnswer_num(answer_num);
 		answer.setMember_num(member_num);
-		answer.setAnswer_delete("N"); // N=내일기장으로
-		answer.setDelete_date(""); //휴지통에 넣은 날짜
-		answer.setQuestion_num(4);
-		
-		//System.out.println("Answer_delete: "+answer.getAnswer_delete());
-		//System.out.println("Delete_date: "+answer.getDelete_date());
-		//System.out.println("Answer_num: " +answer.getAnswer_num());
 		
 		
-		int result = answerService.trashPublic(answer);
+		System.out.println("Answer_delete: "+answer.getAnswer_delete());
+		System.out.println("Delete_date: "+answer.getDelete_date());
+		System.out.println("Answer_num: " +answer.getAnswer_num());
+		System.out.println("Member_num: " +answer.getMember_num());
+		
+		int result=0;
+		//int result = answerService.trashPublic(answer);
+		
+		String str =answer.getAnswer_delete();
+		System.out.println("str: "+str);
+		if (str.equals("N")) {
+			//result = answerService.trashPublic(answer);
+			result = answerService.trashUpdate(answer);
+		}
+		else {
+			result=0;
+			System.out.println("삭제는 answer_delete값이 N여야랍니다.");
+			
+		}
+		
 		System.out.println("=========삭제 수정완료=========");
-		
+		System.out.println("=========답변 횟수를 수정합니다=========");
 		int result2=0;
 		
 		//answer_delete값 변경 완료시 실행(다시 내일기장으로 답변 복구)
@@ -272,7 +292,7 @@ public class AnswerController {
 			
 		}
 		else {
-			System.out.println("실패!!!!!!!!!!!!");
+			System.out.println("먼저 answer_delete부터 맞추고 오세요. 실패!!!!!!!!!!!!");
 			result2=0;
 		}
 		System.out.println("성공 1, 실패 0 : " + result2);

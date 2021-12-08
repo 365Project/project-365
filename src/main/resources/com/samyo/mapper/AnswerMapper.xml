@@ -121,11 +121,11 @@
 		and
 			answer_delete = "Y"
 	</select>
-	<update id="trashPublic" >
+	<update id="trashUpdate" >
 		UPDATE
 			ANSWER 
 		SET 
-			answer_delete= "N"
+			answer_delete= "N", delete_date=null
 		WHERE 
 			answer_num= #{answer_num}
 		and
