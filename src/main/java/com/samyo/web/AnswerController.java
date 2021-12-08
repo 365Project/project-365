@@ -2,6 +2,7 @@ package com.samyo.web;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,37 +40,16 @@ public class AnswerController {
 	@Autowired
 	private AnswerService answerService;
 
-
+	//=================================================
+	//==================내 일기장 ==========================
+	//=================================================
 	//답변 작성하기 ,POST
-	//@RequestMapping("/answers/new")
-	//@ResponseBody
-	/*public int write(@RequestParam("answer_year") String answer_year, @RequestParam("answer_date") String answer_date,
-			@RequestParam("answer") String answer,@RequestParam("public_answer") String public_answer,
-			@RequestParam("question_num") int question_num,@RequestParam("member_num") int member_num,
-			@RequestParam("answer_delete") String answer_delete) throws Exception {*/
 	@PostMapping("/answers/new")
 	public int write(@RequestBody AnswerVO answer) throws Exception {
 		System.out.println("답변작성 페이지/ controller name: write");
 		System.out.println("year:"+year);
 		System.out.println("date:"+date);
-		
-		/*AnswerVO answervo = new AnswerVO();
-		
-		
-		
-		//answer.setAnswer_num(6);
-		//answer.setAnswer_year(year);
-		//answer.setAnswer_date(date);
-		answervo.setAnswer_year(answer_year);
-		answervo.setAnswer_date(answer_date);
-		answervo.setAnswer(answer);
-		answervo.setPublic_answer(public_answer);
-		answervo.setQuestion_num(question_num);
-		answervo.setMember_num(member_num);
-		answervo.setAnswer_delete(answer_delete);*/
-		
-		//answervo.setAnswer_year(answer_year);
-		
+			
 		System.out.println("answerVO"+answer);
 		System.out.println("answerVO.getAnswer_year: "+answer.getAnswer_year());
 		System.out.println("answerVO.getanswer: "+answer.getAnswer());
@@ -80,7 +60,7 @@ public class AnswerController {
 		int result2=0;
 		int result3=0;
 		
-		//insetAnswer성공시 (답변등록 성공시) 아래의 조건 진행
+		//insetAnswer성공시 (답변등록 성공시) 기존에 답변이 있으면 count+1, 없으면 컬럼을 새로 만들어준다.
 		if (result == 1 ) {
 			
 			AnswerCountVO answercount = new AnswerCountVO();
@@ -269,7 +249,9 @@ public class AnswerController {
 		return result;
 	}
 	
+	//=================================================
 	//================== 휴지통 ==========================
+	//=================================================
 	//휴지통 > 되돌리기 버튼(답변 복구)
 	@RequestMapping(value="/trashes/settings/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
 	public int trashPublic(@RequestBody AnswerVO answer,@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
@@ -340,25 +322,27 @@ public class AnswerController {
 	
 	//휴지통 > 진짜 삭제하기
 	@DeleteMapping("/trashes/{answer_num}")
-	public int deleteAnswer(@PathVariable("answer_num") int answer_num) {
+	public int deleteAnswer(@RequestBody AnswerVO answer,@PathVariable("answer_num") int answer_num) {
 		System.out.println("답변 삭제 시작! : controller name : deleteAnswer");
 		System.out.println("answer_num: "+answer_num);
 		
-		AnswerVO answer = new AnswerVO();
-		answer.setQuestion_num(4);
-		answer.setMember_num(2);
-		answer.setAnswer_num(answer_num);
+		//AnswerVO answer = new AnswerVO();
+		answer.setAnswer_num(answer_num);;
+		//answer.setMember_num(2);
+		//answer.setAnswer_num(answer_num);
 		
-		int result=answerService.deleteAnswer(answer_num);
+		int result=answerService.deleteAnswer(answer);
 		int result2=0;
 		
+		//답변이 삭제되면 카운트를 -1시켜줍니다.
 		if (result == 1 ) {
 			
 			
 			AnswerCountVO answercount = new AnswerCountVO();
 			answercount.setMember_num(answer.getMember_num());
 			answercount.setQuestion_num(answer.getQuestion_num());
-			System.out.println("getAnswer_num: " +answer.getAnswer_num());
+			System.out.println("answercount.getMember_num: " +answercount.getMember_num());
+			System.out.println("answercount.getQuestion_num: " +answercount.getQuestion_num());
 			
 			result2 = answerService.updateCountDown(answercount);	
 			
@@ -371,6 +355,51 @@ public class AnswerController {
 		return result2;
 		
 	}
+	
+	//휴지통 > 휴지통 비우기(전체 삭제)
+	//휴지통 > 진짜 삭제하기
+		@DeleteMapping("/trashes/all")
+		public int allDeleteAnswer(@RequestBody List<AnswerVO> answerlist) {
+			System.out.println("휴지통 비우기 시작! : controller name : allDeleteAnswer");
+			System.out.println("answerlist: "+answerlist);
+			
+			int result2=0;
+
+			for(AnswerVO an : answerlist) {
+				int count =1;
+				System.out.println("--------------------------");
+				System.out.println(count+"번째 for문을 실행합니다");
+				
+				
+				AnswerVO answer = an;
+				int result=answerService.deleteAnswer(answer);
+				
+				
+				//답변이 삭제되면 카운트를 -1시켜줍니다.
+				if (result == 1 ) {
+					
+					
+					AnswerCountVO answercount = new AnswerCountVO();
+					answercount.setMember_num(answer.getMember_num());
+					answercount.setQuestion_num(answer.getQuestion_num());
+					System.out.println("answercount.getMember_num: " +answercount.getMember_num());
+					System.out.println("answercount.getQuestion_num: " +answercount.getQuestion_num());
+					
+					result2 = answerService.updateCountDown(answercount);	
+					count++;
+				}
+				else {
+					System.out.println("실패!!!!!!!!!!!!");
+					result2=0;
+				}
+				
+			}
+			
+			System.out.println("성공 1, 실패 0 : " + result2);
+			return result2;
+			
+			
+		}//all
 	
 	
 }

@@ -5,6 +5,8 @@ public class AnswerCountVO {
 	private int member_num;
 	private int question_num;
 	private int count;
+	
+	
 	public int getMember_num() {
 		return member_num;
 	}

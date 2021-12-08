@@ -185,9 +185,9 @@ public class AnswerServiceImpl implements AnswerService {
 	}
 
 	@Override
-	public int deleteAnswer(int answer_num) {
+	public int deleteAnswer(AnswerVO answer) {
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
-		answerMapper.deleteAnswer(answer_num);
+		answerMapper.deleteAnswer(answer);
 		return 1;//성공
 	}
 
