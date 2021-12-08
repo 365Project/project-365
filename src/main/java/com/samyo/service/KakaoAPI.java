@@ -11,9 +11,12 @@ import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.samyo.domain.MemberVO;
 
 @Service
 public class KakaoAPI {
@@ -57,10 +60,13 @@ public class KakaoAPI {
 			// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
-
+			//JsonArray array = new Gson().fromJson(result, JsonArray.class);
+			
 			access_Token = element.getAsJsonObject().get("access_token").getAsString();
 			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-
+			
+			//access_Token = array.getAsJsonObject().get("access_token").getAsString();
+			//refresh_Token = array.getAsJsonObject().get("refresh_token").getAsString();
 			System.out.println("access_token : " + access_Token);
 			System.out.println("refresh_token : " + refresh_Token);
 
@@ -102,12 +108,16 @@ public class KakaoAPI {
 
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
-
+			
+			//JsonArray array = new Gson().fromJson(result, JsonArray.class);
+			
+			//JsonObject properties = array.getAsJsonObject().get("properties").getAsJsonObject();
+			//JsonObject kakao_account = array.getAsJsonObject().get("kakao_account").getAsJsonObject();
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 			String id = element.getAsJsonObject().get("id").getAsString();
 
-			// String id = id.getAsJsonObject().get("id").getAsString();
+			//String id = id.getAsJsonObject().get("id").getAsString();
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
 			String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
