@@ -41,7 +41,7 @@ public interface AnswerMapper {
 
 	public int updateCountDown(AnswerCountVO answercount);
 
-	public void deleteAnswer(int answer_num);
+	public void deleteAnswer(AnswerVO answer);
 
 	public int countSelect(AnswerCountVO answercount);
 
