@@ -26,7 +26,7 @@ public interface AnswerMapper {
 
 	public void publicAnswer(AnswerVO answer);
 
-	public int trashPublic(AnswerVO answer);
+	public int trashUpdate(AnswerVO answer);
 
 	public List<AnswerVO> readTrash(int member_num);
 
@@ -41,6 +41,8 @@ public interface AnswerMapper {
 	public int updateCountDown(AnswerCountVO answercount);
 
 	public void deleteAnswer(int answer_num);
+
+	
 
 	//public void deleteAnswer(int answer_num);
 

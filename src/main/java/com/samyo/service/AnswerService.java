@@ -16,9 +16,9 @@ public interface AnswerService {
 	//public AnswerVO UpdateAnswer(int answer_num, int member_num);
 	public void updateAnswer(AnswerVO answer);
 	public int updateDelete(AnswerVO answer);
-	public void publicAnswer(AnswerVO answer);
+	public int publicAnswer(AnswerVO answer);
 	
-	public int trashPublic(AnswerVO answer);
+	public int trashUpdate(AnswerVO answer);
 	public List<AnswerVO> readTrash(int member_num);
 	//public int deleteAnswer(int answer_num);
 	

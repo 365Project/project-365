@@ -82,23 +82,25 @@ public class AnswerServiceImpl implements AnswerService {
 
 
 	@Override
-	public void publicAnswer(AnswerVO answer) {
+	public int publicAnswer(AnswerVO answer) {
 		System.out.println("공개 여부 수정 하기!/ service name: publicAnswer");
 		
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 	
 		answerMapper.publicAnswer(answer);
 		
+		return 1; //성공
+		
 	}
 
 
 	@Override
-	public int trashPublic(AnswerVO answer) {
+	public int trashUpdate(AnswerVO answer) {
 		System.out.println("답변 복원 하기 !/ service name: TrashPublic");
 		
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 	
-		answerMapper.trashPublic(answer);
+		answerMapper.trashUpdate(answer);
 		
 		return 1;//성공
 		
