@@ -192,5 +192,18 @@ public class AnswerServiceImpl implements AnswerService {
 	}
 
 
+	@Override
+	public List<String> readRandomAnswer(int question_num) {
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+		List<String> str = answerMapper.readRandomAnswer(question_num);
+		System.out.println("답변count !/ service name: readRandomAnswer");
+		for(String st : str) {
+			System.out.println("st: "+st);
+		}
+		
+		return str; //성공
+	}
+
+
 	
 }

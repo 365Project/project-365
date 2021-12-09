@@ -45,6 +45,8 @@ public interface AnswerMapper {
 
 	public int countSelect(AnswerCountVO answercount);
 
+	public List<String> readRandomAnswer(int question_num);
+
 	
 
 	//public void deleteAnswer(int answer_num);

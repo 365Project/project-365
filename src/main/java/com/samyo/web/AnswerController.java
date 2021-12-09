@@ -1,6 +1,7 @@
 package com.samyo.web;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -113,6 +114,27 @@ public class AnswerController {
 		System.out.println("--3-");
 		
 		return answer;
+	}
+	
+	//메인> 랜덤 답변 8개 출력하기
+	@GetMapping("/random/{question_num}")
+	public List<String> readRandomAnswer(@PathVariable("question_num") int question_num) throws Exception {
+		System.out.println("랜덤 질문 출력하기/ controller name: readRandomAnswer");
+		System.out.println("question_num: "+question_num);
+		
+		List<String> result = new ArrayList<String>();
+		
+		System.out.println("=====");
+		
+		result.addAll(answerService.readRandomAnswer(question_num));
+		System.out.println("--2-");
+		
+		for(String str : result) {
+			//result.add(str);
+			System.out.println("str: "+str);
+		}
+		//System.out.println("result: "+str);
+		return result;
 	}
 	
 	//내답변 수정버튼>수정페이지
@@ -312,12 +334,26 @@ public class AnswerController {
 	//휴지통 > 삭제한 답변 모두 보기
 	@GetMapping("/trashes/{member_num}")
 	public List<AnswerVO> trashRead(@PathVariable("member_num") int member_num) throws Exception {
-		System.out.println("답변 복원하기 시작! : controller name : trashRead");
+		System.out.println("휴지통 전체 보기! : controller name : trashRead");
 		System.out.println("member_num: "+member_num);
 		
-		List<AnswerVO> answer = answerService.readTrash(member_num);
-	
+		//List<AnswerVO> answer = answerService.readTrash(member_num);
+		List<AnswerVO> answer =  new ArrayList<AnswerVO>();
+		//answer = answerService.readTrash(member_num);
+		
+		System.out.println("=====");
+		
+		answer.addAll(answerService.readTrash(member_num));
+		System.out.println("--2-");
+		
+		for(AnswerVO str : answer) {
+			//result.add(str);
+			System.out.println("str: "+str);
+		}
+		//System.out.println("result: "+str);
 		return answer;
+	
+		
 	}
 	
 	//휴지통 > 진짜 삭제하기
@@ -401,6 +437,7 @@ public class AnswerController {
 			
 		}//all
 	
+		
 	
 }
 
