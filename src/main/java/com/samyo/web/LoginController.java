@@ -30,7 +30,7 @@ public class LoginController {
 	public String getKakaoAuthUrl(HttpServletRequest request) throws Exception {
 		String reqUrl = "https://kauth.kakao.com/oauth/authorize" + "?client_id=f6901986138e44bdb93305d1621fd37b"
 				+ "&redirect_uri=http://localhost:8080/login/oauth_kakao" + "&response_type=code";
-		// + "&redirect_uri=http://61.72.99.219:9130/login/oauth_kakao" + "&response_type=code";
+				// + "&redirect_uri=http://61.72.99.219:9130/login/oauth_kakao" + "&response_type=code";
 
 		return reqUrl;
 	}
