@@ -32,4 +32,13 @@ public class MemberServiceImpl implements MemberService {
 		return res;
 	}
 
+	@Override
+	public int getMemberNum(Object id) throws Exception {
+		
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		int res = memberMapper.getMemberNum(id);
+		
+		return res;
+	}
+
 }
