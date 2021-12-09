@@ -109,9 +109,8 @@ public class KakaoAPI {
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 			
 			System.out.println("--------------------------------------------------------------");
-			System.out.println("id ::::::::::::: 아이디!!!!!!!!!         " + element.getAsJsonObject().get("id").getAsString());
+			System.out.println("id ::::::::::::: 아이디!!!!!!!!! " + element.getAsJsonObject().get("id").getAsString());
 			System.out.println("nickName ::::::::::::::   닉네임 !!!!!!!!  " + properties.getAsJsonObject().get("nickname").getAsString());
-			System.out.println("kakao_account  ::::::::::   이메일 !!!!!!  " + kakao_account.getAsJsonObject().get("email").getAsString());
 			System.out.println("--------------------------------------------------------------");
 
 			String id = element.getAsJsonObject().get("id").getAsString();
@@ -120,21 +119,19 @@ public class KakaoAPI {
 			if (kakao_account.getAsJsonObject().get("email").getAsString() != null) {
 				String email = kakao_account.getAsJsonObject().get("email").getAsString();
 				userInfo.put("email", email);				
-			}
-			
-			if (kakao_account.getAsJsonObject().get("gender").getAsString() != null) {
+			} else if (kakao_account.getAsJsonObject().get("gender").getAsString() != null) {
 				String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
 				userInfo.put("gender", gender);
 				
-			}
-			if (kakao_account.getAsJsonObject().get("age_range").getAsString() != null) {
+			} else if (kakao_account.getAsJsonObject().get("age_range").getAsString() != null) {
 				String age_range = kakao_account.getAsJsonObject().get("age_range").getAsString();
 				userInfo.put("age_range", age_range);
 				
+			} else {
 			}
-
 			userInfo.put("id", id);
 			userInfo.put("nickname", nickname);
+
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

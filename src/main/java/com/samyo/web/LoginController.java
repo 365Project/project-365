@@ -47,9 +47,14 @@ public class LoginController {
 
 		userInfo.put("id", userInfo.get("id"));
 		userInfo.put("nickname", userInfo.get("nickname"));
-		userInfo.put("email", userInfo.get("email"));
-		userInfo.put("gender", userInfo.get("gender"));
-		userInfo.put("age", userInfo.get("age"));
+		
+		if (userInfo.get("email") != null) {
+			userInfo.put("email", userInfo.get("email"));
+		} else if (userInfo.get("gender") != null) {
+			userInfo.put("gender", userInfo.get("gender"));
+		} else if (userInfo.get("age") != null) {
+			userInfo.put("age", userInfo.get("age"));
+		}
 
 		System.out.println();
 
@@ -68,11 +73,11 @@ public class LoginController {
 			if (userInfo.get("id") != null) {
 				session.setAttribute("userId", userInfo.get("id"));
 				session.setAttribute("access_Token", access_Token);
+				System.out.println("session == :: " + session);
 			}
 
 			String token = access_Token.substring(5, 15);
 
-			// result.put("result", "login");
 			result.put("member_num", String.valueOf(member_num));
 			result.put("token", token);
 
@@ -83,11 +88,11 @@ public class LoginController {
 			if (userInfo.get("id") != null) {
 				session.setAttribute("userId", userInfo.get("id"));
 				session.setAttribute("access_Token", access_Token);
+				System.out.println("session == :: " + session);
 			}
 
 			String token = access_Token.substring(5, 15);
 
-			//result.put("result", "login");
 			result.put("member_num", String.valueOf(member_num));
 			result.put("token", token);
 
