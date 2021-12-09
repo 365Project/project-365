@@ -9,14 +9,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.samyo.domain.MemberVO;
 
 @Service
 public class KakaoAPI {
@@ -58,15 +57,12 @@ public class KakaoAPI {
 			System.out.println("response body : " + result);
 
 			// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
-			JsonParser parser = new JsonParser();
-			JsonElement element = parser.parse(result);
-			//JsonArray array = new Gson().fromJson(result, JsonArray.class);
+			JSONParser jsonParser = new JSONParser();
+			JsonElement element = (JsonObject) JsonParser.parseString(result);
 			
 			access_Token = element.getAsJsonObject().get("access_token").getAsString();
 			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
 			
-			//access_Token = array.getAsJsonObject().get("access_token").getAsString();
-			//refresh_Token = array.getAsJsonObject().get("refresh_token").getAsString();
 			System.out.println("access_token : " + access_Token);
 			System.out.println("refresh_token : " + refresh_Token);
 
@@ -80,7 +76,7 @@ public class KakaoAPI {
 		return access_Token;
 	}
 
-	public HashMap<String, Object> getUserInfo(String access_Token) {
+	public HashMap<String, Object> getUserInfo(String access_Token) throws ParseException {
 
 		// 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
 		HashMap<String, Object> userInfo = new HashMap<>();
@@ -105,29 +101,40 @@ public class KakaoAPI {
 				result += line;
 			}
 			System.out.println("response body : " + result);
-
-			JsonParser parser = new JsonParser();
-			JsonElement element = parser.parse(result);
 			
-			//JsonArray array = new Gson().fromJson(result, JsonArray.class);
+			JSONParser jsonParser = new JSONParser();
+			JsonElement element = (JsonObject) JsonParser.parseString(result);
 			
-			//JsonObject properties = array.getAsJsonObject().get("properties").getAsJsonObject();
-			//JsonObject kakao_account = array.getAsJsonObject().get("kakao_account").getAsJsonObject();
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-			String id = element.getAsJsonObject().get("id").getAsString();
+			
+			System.out.println("--------------------------------------------------------------");
+			System.out.println("id ::::::::::::: 아이디!!!!!!!!!         " + element.getAsJsonObject().get("id").getAsString());
+			System.out.println("nickName ::::::::::::::   닉네임 !!!!!!!!  " + properties.getAsJsonObject().get("nickname").getAsString());
+			System.out.println("kakao_account  ::::::::::   이메일 !!!!!!  " + kakao_account.getAsJsonObject().get("email").getAsString());
+			System.out.println("--------------------------------------------------------------");
 
-			//String id = id.getAsJsonObject().get("id").getAsString();
+			String id = element.getAsJsonObject().get("id").getAsString();
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-			String email = kakao_account.getAsJsonObject().get("email").getAsString();
-			String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
-			String age_range = kakao_account.getAsJsonObject().get("age_range").getAsString();
+			
+			if (kakao_account.getAsJsonObject().get("email").getAsString() != null) {
+				String email = kakao_account.getAsJsonObject().get("email").getAsString();
+				userInfo.put("email", email);				
+			}
+			
+			if (kakao_account.getAsJsonObject().get("gender").getAsString() != null) {
+				String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
+				userInfo.put("gender", gender);
+				
+			}
+			if (kakao_account.getAsJsonObject().get("age_range").getAsString() != null) {
+				String age_range = kakao_account.getAsJsonObject().get("age_range").getAsString();
+				userInfo.put("age_range", age_range);
+				
+			}
 
 			userInfo.put("id", id);
 			userInfo.put("nickname", nickname);
-			userInfo.put("email", email);
-			userInfo.put("gender", gender);
-			userInfo.put("age_range", age_range);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
