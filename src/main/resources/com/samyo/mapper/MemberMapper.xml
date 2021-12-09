@@ -3,6 +3,14 @@
 
 <mapper namespace="com.samyo.mapper.MemberMapper">
 
+	<!-- <insert id="insertMember" parameterType="hashmap">
+		insert into
+		MEMBER
+		(id, nickname, email, gender, age_range, token, joindate)
+		values
+		(#{id}, #{nickname}, #{email}, #{gender}, #{age_range}, #{token}, now())
+	</insert> -->
+	
 	<insert id="insertMember" parameterType="hashmap">
 		insert into
 		MEMBER
@@ -14,5 +22,10 @@
 	<select id="getMember" parameterType="Object" resultType="int">
 		select
 		count(id) as id from MEMBER where id = #{id}
+	</select>
+	
+	<select id="getMemberNum" parameterType="Object" resultType="int">
+		select 
+		member_num from MEMBER where id = #{id}
 	</select>
 </mapper>
