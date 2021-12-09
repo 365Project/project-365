@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,17 +25,18 @@ public class LoginController {
 
 	@Autowired
 	private MemberService memberService;
-
+	
+	
 	@RequestMapping(value = "/login/getKakaoAuthUrl")
 	public String getKakaoAuthUrl(HttpServletRequest request) throws Exception {
 		String reqUrl = "https://kauth.kakao.com/oauth/authorize" + "?client_id=f6901986138e44bdb93305d1621fd37b"
 				+ "&redirect_uri=http://localhost:8080/login/oauth_kakao" + "&response_type=code";
-		// + "&redirect_uri=http://61.72.99.219:9130/login/oauth_kakao" + "&response_type=code";
+			 // + "&redirect_uri=http://61.72.99.219:9130/login/oauth_kakao" + "&response_type=code";
 
 		return reqUrl;
-	}
-
-	@RequestMapping(value = "/login/oauth_kakao")
+	}	
+	
+	@RequestMapping(value = "/login/oauth_kakao", method = RequestMethod.GET)
 	public HashMap<String, String> login(@RequestParam("code") String code, HttpSession session) throws Exception {
 		System.out.println("code : " + code);
 
@@ -76,6 +78,7 @@ public class LoginController {
 				session.setAttribute("userId", userInfo.get("id"));
 				session.setAttribute("access_Token", access_Token);
 				System.out.println("session == :: " + session);
+				
 			}
 
 			String token = access_Token.substring(5, 15);
