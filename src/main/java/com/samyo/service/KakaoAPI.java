@@ -119,16 +119,18 @@ public class KakaoAPI {
 			if (kakao_account.getAsJsonObject().get("email").getAsString() != null) {
 				String email = kakao_account.getAsJsonObject().get("email").getAsString();
 				userInfo.put("email", email);				
-			} else if (kakao_account.getAsJsonObject().get("gender").getAsString() != null) {
+			}
+			if (kakao_account.getAsJsonObject().get("gender").getAsString() != null) {
 				String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
 				userInfo.put("gender", gender);
 				
-			} else if (kakao_account.getAsJsonObject().get("age_range").getAsString() != null) {
+			}
+			if (kakao_account.getAsJsonObject().get("age_range").getAsString() != null) {
 				String age_range = kakao_account.getAsJsonObject().get("age_range").getAsString();
 				userInfo.put("age_range", age_range);
 				
-			} else {
 			}
+			
 			userInfo.put("id", id);
 			userInfo.put("nickname", nickname);
 

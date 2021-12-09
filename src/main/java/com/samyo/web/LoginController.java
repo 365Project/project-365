@@ -50,9 +50,11 @@ public class LoginController {
 		
 		if (userInfo.get("email") != null) {
 			userInfo.put("email", userInfo.get("email"));
-		} else if (userInfo.get("gender") != null) {
+		} 
+		if (userInfo.get("gender") != null) {
 			userInfo.put("gender", userInfo.get("gender"));
-		} else if (userInfo.get("age") != null) {
+		}
+		if (userInfo.get("age") != null) {
 			userInfo.put("age", userInfo.get("age"));
 		}
 
