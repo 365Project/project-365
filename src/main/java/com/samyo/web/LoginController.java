@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.samyo.domain.MemberVO;
@@ -48,6 +47,7 @@ public class LoginController {
 		userInfo.put("id", userInfo.get("id"));
 		userInfo.put("nickname", userInfo.get("nickname"));
 		
+		/*
 		if (userInfo.get("email") != null) {
 			userInfo.put("email", userInfo.get("email"));
 		} 
@@ -57,7 +57,7 @@ public class LoginController {
 		if (userInfo.get("age") != null) {
 			userInfo.put("age", userInfo.get("age"));
 		}
-
+		 */
 		System.out.println();
 
 		MemberVO member = new MemberVO();

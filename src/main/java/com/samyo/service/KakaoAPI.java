@@ -115,7 +115,7 @@ public class KakaoAPI {
 
 			String id = element.getAsJsonObject().get("id").getAsString();
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-			
+			/*
 			if (kakao_account.getAsJsonObject().get("email").getAsString() != null) {
 				String email = kakao_account.getAsJsonObject().get("email").getAsString();
 				userInfo.put("email", email);				
@@ -130,7 +130,7 @@ public class KakaoAPI {
 				userInfo.put("age_range", age_range);
 				
 			}
-			
+			*/
 			userInfo.put("id", id);
 			userInfo.put("nickname", nickname);
 
