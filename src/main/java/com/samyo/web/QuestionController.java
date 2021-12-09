@@ -44,10 +44,11 @@ public class QuestionController {
 			//Calendar today = Calendar.getInstance();
 			if (question_num != today.get(Calendar.DAY_OF_YEAR) + 1) {
 				System.out.println("오늘 아님!1");
+				question = null;
 				return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
 				
 			} else {
-				System.out.println("오늘 맞음!");
+				System.out.println("오늘 맞음!1");
 				return new ResponseEntity<>(question, HttpStatus.OK);
 			}
 		
@@ -55,10 +56,11 @@ public class QuestionController {
 			
 			if (question_num != today.get(Calendar.DAY_OF_YEAR) + 2) {
 				System.out.println("오늘 아님!2");
+				question = null;
 				return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
 				
 			} else {
-				System.out.println("오늘 맞음!");
+				System.out.println("오늘 맞음!2");
 				return new ResponseEntity<>(question, HttpStatus.OK);
 			}
 			
@@ -68,10 +70,11 @@ public class QuestionController {
 			
 			if (question_num != today.get(Calendar.DAY_OF_YEAR) + 1) {
 				System.out.println("오늘 아님!3");
+				question = null;
 				return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
 				
 			} else {
-				System.out.println("오늘 맞음!");
+				System.out.println("오늘 맞음!3");
 				return new ResponseEntity<>(question, HttpStatus.OK);
 			}
 			
@@ -84,17 +87,70 @@ public class QuestionController {
 	@GetMapping(value = "calendars/{question_num}", produces = "application/json; charset=utf-8")
 	public ResponseEntity<QuestionVO> getQuestions(@PathVariable("question_num") int question_num) throws Exception {
 		System.out.println("넘어온 질문번호 :: " + question_num);
-
+		
+		Calendar today = Calendar.getInstance();
+		// 올해 연도
+		System.out.print("이 해의 연도 :: ");
+		System.out.println(today.get(Calendar.YEAR));
+		
 		QuestionVO question = new QuestionVO();
 		question = questionService.getQuestion(question_num);
-
-		if (question == null) {
+		
+		int year = today.get(Calendar.YEAR);
+		
+		// 평년인지 체크 평년이면 true, 윤년이면 false
+		if (yearChk(year) && question_num < 60) { // 평년이면서 1~2월
+			
+			//Calendar today = Calendar.getInstance();
+			if (question_num != today.get(Calendar.DAY_OF_YEAR) + 1) {
+				System.out.println("오늘 아님!1");
+				question = null;
+				return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
+				
+			} else {
+				System.out.println("오늘 맞음!1");
+				return new ResponseEntity<>(question, HttpStatus.OK);
+			}
+		
+		} else if (yearChk(year) && question_num > 60){ // 평년이면서 3~12월
+			
+			if (question_num != today.get(Calendar.DAY_OF_YEAR) + 2) {
+				System.out.println("오늘 아님!2");
+				question = null;
+				return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
+				
+			} else {
+				System.out.println("오늘 맞음!2");
+				return new ResponseEntity<>(question, HttpStatus.OK);
+			}
+			
+			
+			
+		} else { // 윤년일떄
+			
+			if (question_num != today.get(Calendar.DAY_OF_YEAR) + 1) {
+				System.out.println("오늘 아님!3");
+				question = null;
+				return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
+				
+			} else {
+				System.out.println("오늘 맞음!3");
+				return new ResponseEntity<>(question, HttpStatus.OK);
+			}
+			
+		}
+	
+		
+		/*
+		  	if (question == null) {
+		 
 			System.out.println("잘못된 질문 번호. 잘못된 요청");
 			return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
 		} else {
 			System.out.println(question);
 			return new ResponseEntity<>(question, HttpStatus.OK);
 		}
+		*/
 	}
 	
 	// 윤년 || 평년 check
@@ -106,7 +162,7 @@ public class QuestionController {
 			System.out.println("올해는 윤년입니다.");
 			return false;
 		}else {
-			//평년
+			// 평년
 			System.out.println("올해는 평년입니다.");
 			return true;
 		}
