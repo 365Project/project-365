@@ -437,7 +437,50 @@ public class AnswerController {
 			
 		}//all
 	
+		/*==============디비넣기=================*/
+		/*==============디비넣기=================*/
+		/*==============디비넣기=================*/
+		/*@PostMapping("/test")
+		public void test() throws Exception {
+			System.out.println("더미 데이터를 insert합니다/ controller name: test");
+			System.out.println("year:"+year);
+			System.out.println("date:"+date);
+			
+			System.out.println("++++++++++++++++++++++++++");
+			//int result = answerService.insertAnswer(answer);
+			//int result2=0;
+			//int result3=0;
+			for(int i=1201; i<1211; i++) {
+				//int b=1201;
+				for(int j=2021; j<2023; j++) {
+					
+					
+						AnswerVO answer = new AnswerVO();
+						answer.setAnswer("답변답변답변.");
+						answer.setAnswer_date(String.valueOf(i));
+						//answer.setAnswer_delete(answer_delete);
+						//answer.setAnswer_num(answer_num);
+						answer.setAnswer_year(String.valueOf(j));
+						//answer.setDelete_date(delete_date);
+						answer.setMember_num(2);
+						//answer.setPublic_answer(public_answer);
+						answer.setQuestion_num(336);
+						
+						answerService.test(answer);
+					
+
+					
+					
+					
+				}
+				//++b;
+				
+			}
 		
+		}*/
+
+		
+		/*==============디비넣기=================*/
 	
 }
 
