@@ -47,6 +47,8 @@ public interface AnswerMapper {
 
 	public List<String> readRandomAnswer(int question_num);
 
+	//public void test(AnswerVO answer);
+
 	
 
 	//public void deleteAnswer(int answer_num);

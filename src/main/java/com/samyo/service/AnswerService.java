@@ -32,6 +32,7 @@ public interface AnswerService {
 	public int deleteAnswer(AnswerVO answer);
 	public int countSelect(AnswerCountVO answercount); //달력에 뿌리기위해 답변 갯수 조회
 	public List<String> readRandomAnswer(int question_num);
+	public void test(AnswerVO answer);
 	
 	
 	

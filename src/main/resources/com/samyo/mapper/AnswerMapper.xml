@@ -42,7 +42,7 @@
 			member_num= #{member_num}
 		and
 			answer_delete = "N"
-		order by
+		order by answer_num DESC
 			
 		
 	</select>
@@ -131,7 +131,7 @@
 		and
 			answer_delete = "Y"
 		ORDER BY 
-			 answer_num DESC;
+			 question_num DESC, answer_num DESC ;
 	</select>
 	<update id="trashUpdate" >
 		UPDATE

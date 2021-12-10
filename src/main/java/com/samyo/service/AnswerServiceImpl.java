@@ -38,6 +38,8 @@ public class AnswerServiceImpl implements AnswerService {
 		map.put("question_num", question_num);
 		map.put("member_num", member_num);
 		
+		System.out.println("question_num"+question_num);
+		System.out.println("member_num"+member_num);
 		List<AnswerVO> result =answerMapper.selectAnswer(map);
 		return result;
 	}
@@ -202,6 +204,14 @@ public class AnswerServiceImpl implements AnswerService {
 		}
 		
 		return str; //성공
+	}
+
+
+	@Override
+	public void test(AnswerVO answer) {
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+		answerMapper.insertAnswer(answer);
+		
 	}
 
 
