@@ -59,10 +59,10 @@ public class AnswerController {
 		System.out.println("++++++++++++++++++++++++++");
 		int result = answerService.insertAnswer(answer);
 		int result2=0;
-		int result3=0;
+		int result3=1;
 		
 		//insetAnswer성공시 (답변등록 성공시) 기존에 답변이 있으면 count+1, 없으면 컬럼을 새로 만들어준다.
-		if (result == 1 ) {
+		/*if (result == 1 ) {
 			
 			AnswerCountVO answercount = new AnswerCountVO();
 			answercount.setMember_num(answer.getMember_num());
@@ -90,7 +90,7 @@ public class AnswerController {
 		else {
 			System.out.println("실패!!!!!!!!!!!!");
 			result3=0;
-		}
+		}*/
 		//return result2;
 		System.out.println("성공 1, 실패 0 : " + result3);
 		return result3;
@@ -119,7 +119,7 @@ public class AnswerController {
 	//메인> 랜덤 답변 8개 출력하기
 	@GetMapping("/random/{question_num}")
 	public List<String> readRandomAnswer(@PathVariable("question_num") int question_num) throws Exception {
-		System.out.println("랜덤 질문 출력하기/ controller name: readRandomAnswer");
+		System.out.println("랜덤 답변 출력하기/ controller name: readRandomAnswer");
 		System.out.println("question_num: "+question_num);
 		
 		List<String> result = new ArrayList<String>();
@@ -221,10 +221,10 @@ public class AnswerController {
 		//System.out.println("=========삭제 수정완료=========");
 		
 		//int result = answerService.insertAnswer(answer);
-		int result2=0;
+		int result2=1;
 		
 		//answer_delete값 변경 완료시 실행
-		if (result == 1 ) {
+		/*if (result == 1 ) {
 			
 			AnswerCountVO answercount = new AnswerCountVO();
 			answercount.setMember_num(answer.getMember_num());
@@ -238,7 +238,7 @@ public class AnswerController {
 		else {
 			System.out.println("실패!!!!!!!!!!!!");
 			result2=0;
-		}
+		}*/
 		System.out.println("성공 1, 실패 0 : " + result2);
 		return result2;
 		//return result;
@@ -306,10 +306,10 @@ public class AnswerController {
 		
 		System.out.println("=========삭제 수정완료=========");
 		System.out.println("=========답변 횟수를 수정합니다=========");
-		int result2=0;
+		int result2=1;
 		
 		//answer_delete값 변경 완료시 실행(다시 내일기장으로 답변 복구)
-		if (result == 1 ) {
+		/*if (result == 1 ) {
 			
 			AnswerCountVO answercount = new AnswerCountVO();
 			answercount.setMember_num(answer.getMember_num());
@@ -323,7 +323,7 @@ public class AnswerController {
 		else {
 			System.out.println("먼저 answer_delete부터 맞추고 오세요. 실패!!!!!!!!!!!!");
 			result2=0;
-		}
+		}*/
 		System.out.println("성공 1, 실패 0 : " + result2);
 		return result2;
 		//return result;
@@ -378,10 +378,10 @@ public class AnswerController {
 		//answer.setAnswer_num(answer_num);
 		
 		int result=answerService.deleteAnswer(answer);
-		int result2=0;
+		int result2=1;
 		
 		//답변이 삭제되면 카운트를 -1시켜줍니다.
-		if (result == 1 ) {
+		/*if (result == 1 ) {
 			
 			
 			AnswerCountVO answercount = new AnswerCountVO();
@@ -396,7 +396,7 @@ public class AnswerController {
 		else {
 			System.out.println("실패!!!!!!!!!!!!");
 			result2=0;
-		}
+		}*/
 		System.out.println("성공 1, 실패 0 : " + result2);
 		return result2;
 		
@@ -409,7 +409,7 @@ public class AnswerController {
 			System.out.println("휴지통 비우기 시작! : controller name : allDeleteAnswer");
 			System.out.println("answerlist: "+answerlist);
 			
-			int result2=0;
+			int result2=1;
 
 			for(AnswerVO an : answerlist) {
 				int count =1;
@@ -422,7 +422,7 @@ public class AnswerController {
 				
 				
 				//답변이 삭제되면 카운트를 -1시켜줍니다.
-				if (result == 1 ) {
+				/*if (result == 1 ) {
 					
 					
 					AnswerCountVO answercount = new AnswerCountVO();
@@ -437,7 +437,7 @@ public class AnswerController {
 				else {
 					System.out.println("실패!!!!!!!!!!!!");
 					result2=0;
-				}
+				}*/
 				
 			}
 			
