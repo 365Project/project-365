@@ -1,5 +1,6 @@
 package com.samyo.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.samyo.domain.AnswerCountVO;
@@ -19,7 +20,7 @@ public interface AnswerService {
 	public int publicAnswer(AnswerVO answer);
 	
 	public int trashUpdate(AnswerVO answer);
-	public List<AnswerVO> readTrash(int member_num);
+	//public List<AnswerVO> readTrash(int member_num, int delete_date);
 	//public int deleteAnswer(int answer_num);
 	
 	public int count(AnswerCountVO answercount); //하나라도 답변이 존재하는지 판단
@@ -29,11 +30,14 @@ public interface AnswerService {
 	
 	public int updateCountUp(AnswerCountVO answercount);
 	public int updateCountDown(AnswerCountVO answercount);
-	public int deleteAnswer(AnswerVO answer);
+	public int deleteAnswer(AnswerVO answer); //진짜 삭제
 	public int countSelect(AnswerCountVO answercount); //달력에 뿌리기위해 답변 갯수 조회
 	public List<String> readRandomAnswer(int question_num);
 	public void test(AnswerVO answer);
-	
+	//public int deleteAnswerInt(int answer); //삭제테스트
+	public List<AnswerVO> readTrash(AnswerVO answer);//삭제한지얼마나지났나
+	//public Integer deleteDateCount(String delete_date);
+	public void deleteDateCount(int member_num);
 	
 	
 	

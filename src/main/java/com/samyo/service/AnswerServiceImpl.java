@@ -34,6 +34,7 @@ public class AnswerServiceImpl implements AnswerService {
 	public List<AnswerVO> readAnswer(int question_num, int member_num) throws Exception {
 
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+		
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("question_num", question_num);
 		map.put("member_num", member_num);
@@ -110,10 +111,13 @@ public class AnswerServiceImpl implements AnswerService {
 
 
 	@Override
-	public List<AnswerVO> readTrash(int member_num) {
+	public List<AnswerVO> readTrash(AnswerVO answer) {
+		System.out.println("휴지통조회 시작 / service name: readTrash");
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 		
-		List<AnswerVO> result =answerMapper.readTrash(member_num);
+		//int res = answerMapper.deleteAnswerInt(delete_date);
+		//if res 
+		List<AnswerVO> result =answerMapper.readTrash(answer.getMember_num());
 		return result;
 		
 	}
@@ -191,6 +195,23 @@ public class AnswerServiceImpl implements AnswerService {
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 		answerMapper.deleteAnswer(answer);
 		return 1;//성공
+	}
+	
+	//경과일 확인후 7일지난것 삭제하기
+	@Override
+	public void deleteDateCount(int member_num) {
+		System.out.println("날짜 지난것들 삭제 !/ service name: deleteDateCount");
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+		
+		
+		System.out.println("member_num"+member_num);
+		
+		//System.out.println("delete_date"+delete_date);
+		answerMapper.deleteDateCount(member_num);
+		//return result;
+		
+		//answerMapper.deleteDateCount(member_num,delete_date);
+		//return 1;//성공
 	}
 
 

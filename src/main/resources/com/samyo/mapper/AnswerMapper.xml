@@ -133,6 +133,19 @@
 		ORDER BY 
 			 question_num DESC, answer_num DESC ;
 	</select>
+	<delete id="deleteDateCount" >		
+		<![CDATA[
+		DELETE FROM 
+			ANSWER 
+		where
+			
+			DATEDIFF(CURDATE() , delete_date) >= 7
+		AND 
+			member_num= #{member_num}
+		AND 
+			answer_delete="Y";
+		]]>
+	</delete>
 	<update id="trashUpdate" >
 		UPDATE
 			ANSWER 

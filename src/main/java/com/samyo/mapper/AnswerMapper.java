@@ -47,6 +47,12 @@ public interface AnswerMapper {
 
 	public List<String> readRandomAnswer(int question_num);
 
+	public int deleteAnswerInt(String delete_date);
+
+	public void deleteDateCount(int member_num);
+
+	//public List<AnswerVO> deleteDateCount(HashMap<String, Object> map);
+
 	//public void test(AnswerVO answer);
 
 	
