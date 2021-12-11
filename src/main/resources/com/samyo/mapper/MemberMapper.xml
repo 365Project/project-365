@@ -14,9 +14,9 @@
 	<insert id="insertMember" parameterType="hashmap">
 		insert into
 		MEMBER
-		(id, nickname, email, gender, age_range, token, joindate)
+		(id, nickname, joindate)
 		values
-		(#{id}, #{nickname}, #{email}, #{gender}, #{age_range}, #{token}, now())
+		(#{id}, #{nickname}, now())
 	</insert>
 
 	<select id="getMember" parameterType="Object" resultType="int">
