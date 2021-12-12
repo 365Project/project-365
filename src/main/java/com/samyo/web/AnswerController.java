@@ -333,9 +333,10 @@ public class AnswerController {
 
 	//휴지통 > 삭제한 답변 모두 보기
 	@GetMapping("/trashes/{member_num}")
-	public List<AnswerVO> trashRead(@RequestBody AnswerVO answer) throws Exception {
+	//public List<AnswerVO> trashRead(@RequestBody AnswerVO answer,@PathVariable("member_num") int member_num) throws Exception {
+	public List<AnswerVO> trashRead(@PathVariable("member_num") int member_num) throws Exception {
 		System.out.println("휴지통 전체 보기! : controller name : trashRead");
-		System.out.println("member_num: "+answer.getMember_num());
+		System.out.println("member_num: "+member_num);
 		//System.out.println("delete_date: "+delete_date);
 		
 		//List<AnswerVO> answer = answerService.readTrash(member_num);
@@ -348,12 +349,12 @@ public class AnswerController {
 		//List<Integer> result = new ArrayList<Integer>();
 		
 		//for(int i=0; i<result.size(); i++) {
-			answerService.deleteDateCount(answer.getMember_num());
+			answerService.deleteDateCount(member_num);
 		//}
 		
 		
 		//
-		list.addAll(answerService.readTrash(answer));
+		list.addAll(answerService.readTrash(member_num));
 		System.out.println("--2-");
 		
 		for(AnswerVO str : list) {
