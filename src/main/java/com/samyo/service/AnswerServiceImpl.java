@@ -111,13 +111,13 @@ public class AnswerServiceImpl implements AnswerService {
 
 
 	@Override
-	public List<AnswerVO> readTrash(AnswerVO answer) {
+	public List<AnswerVO> readTrash(int member_num) {
 		System.out.println("휴지통조회 시작 / service name: readTrash");
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 		
 		//int res = answerMapper.deleteAnswerInt(delete_date);
 		//if res 
-		List<AnswerVO> result =answerMapper.readTrash(answer.getMember_num());
+		List<AnswerVO> result =answerMapper.readTrash(member_num);
 		return result;
 		
 	}

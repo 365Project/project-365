@@ -35,7 +35,7 @@ public interface AnswerService {
 	public List<String> readRandomAnswer(int question_num);
 	public void test(AnswerVO answer);
 	//public int deleteAnswerInt(int answer); //삭제테스트
-	public List<AnswerVO> readTrash(AnswerVO answer);//삭제한지얼마나지났나
+	public List<AnswerVO> readTrash(int member_num);//삭제한지얼마나지났나
 	//public Integer deleteDateCount(String delete_date);
 	public void deleteDateCount(int member_num);
 	
