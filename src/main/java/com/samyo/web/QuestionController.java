@@ -16,13 +16,15 @@ import com.samyo.service.QuestionService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/question")
 public class QuestionController {
 
 	@Autowired
 	private QuestionService questionService;
-
-	@GetMapping(value = "/{question_num}", produces = "application/json; charset=utf-8")
+	
+	/*
+	 *  메인페이지, 답변 작성 페이지에서 오늘 질문을 불러온다.
+	 */
+	@GetMapping(value = "/question/{question_num}", produces = "application/json; charset=utf-8")
 	public ResponseEntity<QuestionVO> getQuestion(@PathVariable("question_num") int question_num) throws Exception {
 		System.out.println("넘어온 질문번호 :: " + question_num);
 		// 받아온 질문 번호와 오늘 날짜를 비교하기 위해
@@ -42,14 +44,18 @@ public class QuestionController {
 			return new ResponseEntity<>(question, HttpStatus.OK);
 		}
 	}
-
-	@GetMapping(value = "calendars/{question_num}", produces = "application/json; charset=utf-8")
+	
+	/*
+	 * 내 일기장, 휴지통 오늘 외의 모든 질문 불러오기. 
+	 */
+	@GetMapping(value = "/question/calendars/{question_num}", produces = "application/json; charset=utf-8")
 	public ResponseEntity<QuestionVO> getQuestions(@PathVariable("question_num") int question_num) throws Exception {
 		System.out.println("넘어온 질문번호 :: " + question_num);
 
 		QuestionVO question = new QuestionVO();
 		question = questionService.getQuestion(question_num);
-
+		
+		
 		if (question == null) {
 			System.out.println("366개의 질문이 아님. 잘못된 요청");
 			return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
@@ -57,7 +63,31 @@ public class QuestionController {
 			System.out.println(question);
 			return new ResponseEntity<>(question, HttpStatus.OK);
 		}
+		
 	}
+	
+	/*
+	 * 답변이 없는 질문에는 다른 문구 띄워주기.
+	 */
+	@GetMapping(value = "/question/calendars/{question_num}", produces = "application/json; charset=utf-8")
+	public ResponseEntity<QuestionVO> getQuestions2(@PathVariable("question_num") int question_num) throws Exception {
+		System.out.println("넘어온 질문번호 :: " + question_num);
+
+		QuestionVO question = new QuestionVO();
+		question = questionService.getQuestion(question_num);
+		
+		
+		if (question == null) {
+			System.out.println("366개의 질문이 아님. 잘못된 요청");
+			return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
+		} else {
+			System.out.println(question);
+			return new ResponseEntity<>(question, HttpStatus.OK);
+		}
+		
+	}
+	
+	
 }
 	
 	/*
