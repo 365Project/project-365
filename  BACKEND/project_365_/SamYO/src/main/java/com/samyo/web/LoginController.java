@@ -37,7 +37,7 @@ public class LoginController {
 	}	
 	
 	@RequestMapping(value = "/login/oauth_kakao", method = RequestMethod.GET)
-	public HashMap<String, String> login(@RequestParam("code") String code, HttpSession session) throws Exception {
+	public HashMap<String, String> login(@RequestParam("code") String code) throws Exception {
 		System.out.println("code : " + code);
 
 		String access_Token = kakaoAPI.getAccessToken(code);
@@ -114,24 +114,25 @@ public class LoginController {
 		}
 
 	}
-	/*
-	@RequestMapping(value = "/logout")
-	public HashMap<String, String> logout(HttpSession session) {
-		String access_Token = (String) session.getAttribute("access_Token");
+	
+	 @RequestMapping(value="/logout")
+	    public HashMap<String, String> logout(@RequestParam("token") String token)throws Exception {
+		 	
+ 		 	HashMap<String, String> message = new HashMap<>();
+		  	
+ 		 	if (token == null ) {
+ 		 		message.put("msg", "token이 없습니다");
+ 		 	} else {
+ 		 		kakaoAPI.kakaoLogout(token);
+ 		 		message.put("msg", "로그아웃 되었습니다");
+ 		 	}
+	       
+	        //message.put("title", "로그아웃");
+	        //message.put("script", "location.href='/'");
+	        //message.put("type","alert");
 
-		HashMap<String, String> result = new HashMap<String, String>();
-		if (access_Token != null && !"".equals(access_Token)) {
-			kakaoAPI.kakaoLogout(access_Token);
-			session.removeAttribute("access_Token");
-			session.removeAttribute("userId");
-			result.put("result", "success");
-
-			return result;
-		} else {
-			System.out.println("access_Token is null");
-			result.put("result", "access_Token is null");
-			return result;
-		}
-	}
-	*/
+	        return message;
+	    }
+	 
+	
 }

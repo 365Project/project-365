@@ -37,7 +37,7 @@ public class KakaoAPI {
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=f6901986138e44bdb93305d1621fd37b");
-			//sb.append("&redirect_uri=http://localhost:8080/login/oauth_kakao");
+			// sb.append("&redirect_uri=http://localhost:8080/login/oauth_kakao");
 			sb.append("&redirect_uri=http://localhost:3000/login/oauth_kakao");
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
@@ -60,10 +60,10 @@ public class KakaoAPI {
 			// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
 			JSONParser jsonParser = new JSONParser();
 			JsonElement element = (JsonObject) JsonParser.parseString(result);
-			
+
 			access_Token = element.getAsJsonObject().get("access_token").getAsString();
 			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-			
+
 			System.out.println("access_token : " + access_Token);
 			System.out.println("refresh_token : " + refresh_Token);
 
@@ -102,39 +102,38 @@ public class KakaoAPI {
 				result += line;
 			}
 			System.out.println("response body : " + result);
-			
+
 			JSONParser jsonParser = new JSONParser();
 			JsonElement element = (JsonObject) JsonParser.parseString(result);
-			
+
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-			
+
 			System.out.println("--------------------------------------------------------------");
 			System.out.println("id ::::::::::::: 아이디!!!!!!!!! " + element.getAsJsonObject().get("id").getAsString());
-			System.out.println("nickName ::::::::::::::   닉네임 !!!!!!!!  " + properties.getAsJsonObject().get("nickname").getAsString());
+			System.out.println("nickName ::::::::::::::   닉네임 !!!!!!!!  "
+					+ properties.getAsJsonObject().get("nickname").getAsString());
 			System.out.println("--------------------------------------------------------------");
 
 			String id = element.getAsJsonObject().get("id").getAsString();
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 			/*
-			if (kakao_account.getAsJsonObject().get("email").getAsString() != null) {
-				String email = kakao_account.getAsJsonObject().get("email").getAsString();
-				userInfo.put("email", email);				
-			}
-			if (kakao_account.getAsJsonObject().get("gender").getAsString() != null) {
-				String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
-				userInfo.put("gender", gender);
-				
-			}
-			if (kakao_account.getAsJsonObject().get("age_range").getAsString() != null) {
-				String age_range = kakao_account.getAsJsonObject().get("age_range").getAsString();
-				userInfo.put("age_range", age_range);
-				
-			}
-			*/
+			 * if (kakao_account.getAsJsonObject().get("email").getAsString() != null) {
+			 * String email = kakao_account.getAsJsonObject().get("email").getAsString();
+			 * userInfo.put("email", email); } if
+			 * (kakao_account.getAsJsonObject().get("gender").getAsString() != null) {
+			 * String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
+			 * userInfo.put("gender", gender);
+			 * 
+			 * } if (kakao_account.getAsJsonObject().get("age_range").getAsString() != null)
+			 * { String age_range =
+			 * kakao_account.getAsJsonObject().get("age_range").getAsString();
+			 * userInfo.put("age_range", age_range);
+			 * 
+			 * }
+			 */
 			userInfo.put("id", id);
 			userInfo.put("nickname", nickname);
-
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -163,6 +162,7 @@ public class KakaoAPI {
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
+			System.out.println("결과");
 			System.out.println(result);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
