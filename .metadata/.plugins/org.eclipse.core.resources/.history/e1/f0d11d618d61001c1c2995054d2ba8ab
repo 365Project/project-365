@@ -1,0 +1,12 @@
+#spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+#spring.datasource.url=jdbc:mysql://localhost:3306/imfind?serverTimezone=UTC
+#spring.datasource.username=root
+#spring.datasource.password=1234
+#spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+#spring.datasource.url=jdbc:mysql://218.39.177.111:8787/test?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF8
+#spring.datasource.username=root
+#spring.datasource.password=mariadb
+spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://database365.cpulfff6cdee.ap-northeast-2.rds.amazonaws.com/test?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF8
+spring.datasource.username=admin
+spring.datasource.password=project365365

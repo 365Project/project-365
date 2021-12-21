@@ -1,0 +1,8 @@
+127.0.0.1 - - [16/Dec/2021:23:37:25 +0900] "GET / HTTP/1.1" 500 10901
+0:0:0:0:0:0:0:1 - - [16/Dec/2021:23:38:01 +0900] "GET /login HTTP/1.1" 500 10901
+0:0:0:0:0:0:0:1 - - [16/Dec/2021:23:38:01 +0900] "GET /favicon.ico HTTP/1.1" 500 10901
+127.0.0.1 - - [16/Dec/2021:23:38:29 +0900] "GET / HTTP/1.1" 200 184
+0:0:0:0:0:0:0:1 - - [16/Dec/2021:23:38:31 +0900] "GET /login HTTP/1.1" 200 966
+0:0:0:0:0:0:0:1 - - [16/Dec/2021:23:38:32 +0900] "GET /favicon.ico HTTP/1.1" 404 721
+0:0:0:0:0:0:0:1 - - [16/Dec/2021:23:38:33 +0900] "GET /login/getKakaoAuthUrl HTTP/1.1" 200 154
+0:0:0:0:0:0:0:1 - - [16/Dec/2021:23:38:53 +0900] "GET /login/oauth_kakao?code=e1FK9nyyvsqFHimC2aj044JSpryh0m97XCe5-bgqQjd6LnXyjgrbTsQ-Vbu5yXdb6ude8Qo9dNsAAAF9w66AJQ HTTP/1.1" 200 113

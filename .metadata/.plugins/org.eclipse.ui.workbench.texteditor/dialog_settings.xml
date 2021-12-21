@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="Session"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="session"/>
+			<item value="gson"/>
+			<item value="&lt;dependency&gt;&#x0A;&#x09;&lt;groupId&gt;com.google.code.gson&lt;/groupId&gt;&#x0A;&#x09; &lt;artifactId&gt;gson&lt;/artifactId&gt;&#x0A;&#x09; &lt;version&gt;2.8.0&lt;/version&gt;&#x0A;&lt;/dependency&gt;"/>
+			<item value="getAccessToken"/>
+			<item value="google"/>
+			<item value="com.fasterxml.jackson.core&lt;/"/>
+			<item value="localhost"/>
+			<item value="local"/>
+			<item value="commons-dbcp"/>
+			<item value="mysql"/>
+			<item value="jdbc"/>
+			<item value="spring"/>
+			<item value="accessToken"/>
+			<item value="KakaoUserInfo"/>
+			<item value="user/me"/>
+		</list>
+		<list key="replacehistory">
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="830"/>
+		<item key="DIALOG_Y_ORIGIN" value="557"/>
+		<item key="DIALOG_WIDTH" value="294"/>
+		<item key="DIALOG_HEIGHT" value="408"/>
+		<item key="DIALOG_FONT_NAME" value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont"/>
+	</section>
+</section>
